@@ -1,0 +1,190 @@
+#+startup:fold
+* export BIBINPUTS=$PWD:/projects/mu2e/bibliography
+* note: file:tmp/mu2e-40523.pdf
+* ------------------------------------------------------------------------------
+* normalization of the timing histogram                                          
+** beam flash : dsid: su2020.flsh0                                         
+   - flsh0: 2.5e6 POT , see https://github.com/Mu2e/su2020/blob/master/flsh0/init_project.py#L32-L35
+   - to normalize to 1.6e7 POT, need to scale up by a factor of (1.6e7/2.5e6)
+   - to be compared to:
+   https://github.com/pavel1murat/mu2e-40523.su2020_beam_electrons/blob/main/scripts/plot_stopped_particles.C#L429
+** muons and pions at VD9:                                    
+   - bmum0 (regenerated and saved as sim.murat.*) corresponds to 1e9 POT
+   - one can check sim.murat.bmum0s11b0.su2020.art: 
+#+begin_code bash
+for f in `samweb list-files 'dh.dataset sim.murat.bmum0s11b0.su2020.art'` ; do
+samweb get-metadata $f | grep dh.gencount ;
+done  | awk '{n+=$2} END{print n}'
+#+end_code
+
+  - to normalize to the mean proton pulse aand scale up by x400: scale by 1.6e7/1e9 = (1./62.5)
+  - to be compared to:
+    - muons: https://github.com/pavel1murat/mu2e-40523.su2020_beam_electrons/blob/main/scripts/plot_stopped_particles.C#L478
+    - pions: https://github.com/pavel1murat/mu2e-40523.su2020_beam_electrons/blob/main/scripts/plot_stopped_particles.C#L453
+** stopped muon decays :
+   - the histogram produced by [[https://github.com/pavel1murat/mu2e-40523.su2020_beam_electrons/blob/main/scripts/make_periodic_histograms.C#L172][make_periodic_histograms.C]] is normalized to the unit integral
+   - normalization: 1.6e7 (protons per pulse)*1.59e-3(stopped muon rate)*400 (presentation factor)
+   - to be compared to:
+     - https://github.com/pavel1murat/mu2e-40523.su2020_beam_electrons/blob/main/scripts/plot_stopped_particles.C#L494
+* ------------------------------------------------------------------------------
+* estimate of the number of mu+ reconstructed per hour with nominal collimator position      
+#+begin_src maxima :results output graphics :exports both :tangle yes
+nppp                 : 1.6e7 ;                 /* number of protons per pulse */
+nmum_per_pot         : 1.6e-3;                 /* mu- stopping rate */
+nmum_stops_per_pulse : nppp*nmum_per_pot;
+nmup_stops_per_pulse : nppp*nmum_per_pot*4e-3;
+/*                                                                    */
+/*              now : estimate the rate                               */
+eff                  : 0.1;                    /* reco efficiency at 0.5 T*/
+f_int                : 1e-3;                   /* beam intensity reduced by this f_int */
+npulses_per_sec      : (1/1.695e-6)*0.4/1.4 ;  /* average pulse rate, account for beam-off */
+
+nreco_per_hour       : nmup_stops_per_pulse*eff*f_int*npulses_per_sec*3600;
+
+print("nmum_stops_per_pulse : ",nmum_stops_per_pulse);
+print("nmup_stops_per_pulse : ",nmup_stops_per_pulse);
+print("npulses_per_sec      : ",npulses_per_sec);
+print("nreco_per_hour       : ",nreco_per_hour );
+#+end_src
+
+#+RESULTS:
+: nmum_stops_per_pulse :  25600.0 
+: nmup_stops_per_pulse :  102.4 
+: npulses_per_sec      :  168563.0004214075 
+: nreco_per_hour       :  6213906.447534768 
+
+* ------------------------------------------------------------------------------
+* muon CM momentum in pi --> nu nu decay : 29.8 MeV/c                        
+#+begin_src maxima :results output graphics :exports both :tangle yes
+  mpi : 139.6;
+  mmu : 105.6;
+  pmu : (mpi^2-mmu^2)/(2*mpi);
+  print("pmu : ",pmu);
+#+end_src
+
+#+RESULTS:
+: pmu :  29.8595988538682 
+
+* muon decays in flight - estimate the integral using two different fits:    
+
+  fit the cos(theta) band bins 51:85 (0 - 0.71), approx tan(pitch) > 1 , of the histogram
+
+  su2020.bmum0s5bb0.spmc_ana.0000.hist / murat_SpmcAna / spmc_1/cth_vs_mom_1
+  
+#+begin_src maxima :results output
+f : exp(35.07-0.3656*x) ;                        /* log-likelihood fit */
+s : float(integrate(f, x,103.5, 105.));
+print("s  (log-likelihood fit): ",s);
+
+f1 : exp(28.61-0.2948*x) ;                       /* chi2 fit */
+s1 : float(integrate(f1, x,103.5, 105.));
+print("s1 (chi2 fit)          : ", s1);
+
+resampling_factor : 1.e3 ;                       /* the dataset resampled by x1000 */
+npot              : 4e19 ;
+extinction        : 1e-10;
+ngenerated        : 1.e9 ;
+sum : (npot/(ngenerated*resampling_factor))*extinction*s1;
+print("sum                    : ",sum);
+#+end_src
+
+#+RESULTS:
+: s  (log-likelihood fit):  0.07237928004987149 
+: s1 (chi2 fit)          :  0.1809923357926502 
+: sum                    :  7.239693431706008e-4 
+
+the upper limit on the contribution of muon decays in flight is then 1.e-3
+* ------------------------------------------------------------------------------
+* muon scattering in the ST                                                  
+
+  fit the cos(theta) band bins 51:85 (0 - 0.71), approx tan(pitch) > 1 , of the histogram
+
+  su2020.bmum0s5ab0.spmc_ana.0000.hist / murat_SpmcAna / spmc_3/cth_vs_mom_1
+
+  with a flat function in the range 100-110 MeV/c
+  
+#+begin_src maxima :results output
+f : 1.0        ;                                 /* binned log likelihood fit */
+s : float(integrate(f, x,103.5, 105.));
+print("s  (log-likelihood fit): ",s);
+
+f1 : 1.5 ;                                       /* chi2 fit */
+s1 : float(integrate(f1, x,103.5, 105.));
+print("s1 (chi2 fit)          : ", s1);
+
+resampling_factor : 1.e4 ;                       /* the dataset resampled by x1e4 */
+npot              : 4e19 ;
+extinction        : 1e-10;
+ngenerated        : 1.e9 ;
+p_misid           : 1.e-2;
+sum               : s1*(npot/(ngenerated*resampling_factor))*extinction*p_misid;
+print("sum                    : ",sum);
+#+end_src
+
+#+RESULTS:
+: s  (log-likelihood fit):  1.5 
+: s1 (chi2 fit)          :  2.25 
+: sum                    :  9.0e-6 
+
+* ------------------------------------------------------------------------------
+* plot mu- momentum as a function of max electron momentum; p(e) = 102 MeV/c --> p(mu) = 75 MeV/c  
+#+BABEL: :session *python* :cache yes :results output graphics :exports both :tangle yes 
+
+#+begin_src python :var fn = "a.png" :var m=105.6   :results none 
+  # replace 'none' with 'file' for writing output into a file
+  # turns out that :session prevents the graphics window from opening
+  import matplotlib.pyplot as plt
+  import numpy as np
+  # t   = np.array([0.0, 400, 200])
+  p   = np.arange(50.,150.,1.) # an array with a given step
+  x   = (2*p/m)**2
+  beta = (x-1)/(x+1)
+  plab = m*beta/np.sqrt(1-beta**2)
+  plt.grid(True)
+  plt.plot(p, plab,label="muons")
+  plt.show();
+  # plt.savefig(fn)
+  # fn
+#+end_src
+* plot pi- momentum as a function of max electron momentum; p(e) = 102 MeV/c --> p(pi) = 55 MeV/c  
+#+begin_src python :var fn = "a.png" :var m = 139.57 :results none 
+  # replace 'none' with 'file' for writing output into a file
+  # turns out that :session prevents the graphics window from opening
+  import matplotlib.pyplot as plt
+  import numpy as np
+  # t   = np.array([0.0, 400, 200])
+
+  p   = np.arange(50.,150.,1.)
+  x   = (2*p/m)**2
+  beta = (x-1)/(x+1)
+  plab = m*beta/np.sqrt(1-beta**2)
+  plt.grid(True)
+  plt.plot(p, plab,label="aaa")
+  plt.show();
+  # plt.savefig(fn)
+  # fn
+#+end_src
+* plot pi- momentum as a function of max muon     momentum;                                        
+#+begin_src python :var fn = "a.png" :var m = 139.57 :results none 
+  # replace 'none' with 'file' for writing output into a file
+  # turns out that :session prevents the graphics window from opening
+  import matplotlib.pyplot as plt
+  import numpy as np
+  import math
+  # t   = np.array([0.0, 400, 200])
+  mpi   = 139.57;
+  mmu   = 105.6 ;
+  pcm   =  (mpi**2-mmu**2)/(2*mpi);
+  ecm   =  math.sqrt(mmu**2 + pcm**2);
+
+  ppi   = np.arange(0.,150.,1.)
+  beta  = ppi/np.sqrt(ppi**2+mpi**2);
+
+  plab  = (pcm + beta*ecm)/np.sqrt(1-beta**2);
+  plt.grid(True)
+  plt.plot(ppi, plab,label="aaa")
+  plt.show();
+  # plt.savefig(fn)
+  # fn
+#+end_src
+* ------------------------------------------------------------------------------

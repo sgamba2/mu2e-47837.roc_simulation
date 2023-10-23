@@ -225,28 +225,29 @@ As second step, we managed to generate a histogram with an alternative channel o
 Our expectation was to observe a declining trend in the number of hits per channel, primarily due to the progressive filling of the buffer. 
 However, contrary to our initial hypothesis, we encountered a distinctive pattern in which the number of hits exhibited a decrease until reaching zero hits at a specific channel,
 followed by a subsequent increase beyond the 72nd channel, which corresponds to channel 95.
+
 Upon careful examination, we deduced that the initial channel ordering was incorrect. 
+The first and the second lanes of the second FPGA were inverted and also some channels of the second FPGA.
 Consequently, we have identified a revised channel sequence, verified also by the Monte Carlo simulation, which is as follows:
 \begin{center}
 \begin{tabular}{cc}
 \textbf{FIST FPGA}: & \\
-\textit{CAL0}: & \\
-\textit{lane 1}& 91,85,79,73,67,61,55,49,\\
-\textit{lane 2}&43,37,31,25,19,13,7,1,\\
-\textit{lane 3}&90,84,78,72,66,60,54,48,\\
-\textit{CAL1}:&\\
-\textit{lane 1}&42,36,30,24,18,12,6,0,\\
-\textit{lane 2}&93,87,81,75,69,63,57,51,\\
-\textit{lane 3}&45,39,33,27,21,15,9,3,\\
+&91,85,79,73,67,61,55,49,\\
+\textit{lane 1}: &43,37,31,25,19,13,7,1,\\
+&90,84,78,72,66,60,54,48,\\
+& \\
+&42,36,30,24,18,12,6,0,\\
+\textit{lane 2}: &93,87,81,75,69,63,57,51,\\
+&45,39,33,27,21,15,9,3,\\
 \textbf{SECOND FPGA}:&\\
-\textit{HV0}:&\\
-\textit{lane 1}&38,44,5,11,17,23,29,35,\\
-\textit{lane 2}&41,92,2,8,14,20,26,32,\\
-\textit{lane 3}&86,80,74,68,62,56,50,47,\\
-\textit{HV1}: & \\
-\textit{lane 1}&95,89,83,22,16,28,34,40,\\
-\textit{lane 2}&46,53,59,65,71,77,10,4,\\
-\textit{lane 3}&94,88,82,76,70,64,58,52\\
+&\\
+&38,44,5,11,17,23,29,35,\\
+\textit{lane 1}:&41,92,2,8,14,20,26,32,\\
+&86,80,74,68,62,56,50,47,\\
+ & \\
+&95,89,83,22,16,28,34,40,\\
+\textit{lane 2}:&46,53,59,65,71,77,10,4,\\
+&94,88,82,76,70,64,58,52\\
 \end{tabular}
 \end{center}   
 At this point we have plotted the number of hits versus the channel number in the order that the filling occurred, as we can see in Fig. \ref{fig:2}.
@@ -259,7 +260,8 @@ At this point we have plotted the number of hits versus the channel number in th
 We can see a perfect adherence between data and simulation. We can interpret the histogram as it follows: the initial group of channels in the histogram,
 corresponds to the ones in which we accumulate 4 hits (associated with the first FPGA) and 3 hits (associated with the second FPGA). 
 Subsequently, we observe a contrasting group of channels where the pattern reverses, 3 hits from the first FPGA followed by 4 hits from the second FPGA.
-We can observe a little jump in the middle and it is due to channel to channel time difference.
+We can observe a little jump in the middle and it is due to channel to channel time differences.
+Time differences are three order of magnitude less than the FPGA ones, so these little jumps are very few, in our case only one appears.
 Lastly, the concluding cluster of channels is comprised of those collecting 3 hits from the first FPGA and 3 hits from the second FPGA.
 
 

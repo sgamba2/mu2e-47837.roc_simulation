@@ -536,7 +536,108 @@ int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 1) {
 // other ones - not necessarily
 // may have the problem with namng the output file
 //-----------------------------------------------------------------------------
-int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "eps") {
+
+//-----------------------------------------------------------------------------
+// perform a fairly common task - fit histogram with a gaussian
+// HistName like "spmc_1/mom"
+//-----------------------------------------------------------------------------
+void fit_gaus_hist_1D(hist_data_t* Hist, const char* FOpt, const char* GOpt, double XMin, double XMax, int Print = 1) {
+
+  char figure_name[200];
+
+  TString hname(Hist->fName);
+
+  if (Hist->fNewName == "") hname.ReplaceAll("/","_");
+  else                      hname = Hist->fNewName;
+
+  hist_file_t*   hf = Hist->fFile;
+  stn_dataset_t* ds = hf->fDataset;
+  
+  TH1F* hpx1 = (TH1F*) gh1(hf->GetName(),Hist->fModule,Hist->fName)->Clone(hname);
+  Hist->fHist = hpx1;
+
+  if (Hist->fRebin > 0) hpx1->Rebin(Hist->fRebin);
+//-----------------------------------------------------------------------------
+// create a canvas
+//-----------------------------------------------------------------------------
+  TString canvas_name(Hist->fModule);
+  canvas_name += "_";
+  canvas_name += hname;
+  canvas_name += "_fit_gaus";
+  canvas_name += "_";
+  canvas_name += Hist->fName;
+  
+  if (Hist->fCanvasName != "") canvas_name = Hist->fCanvasName;
+  TCanvas* c = new TCanvas(canvas_name.Data(),canvas_name.Data(),Hist->fCanvasSizeX,Hist->fCanvasSizeY);
+  c->SetLogy(Hist->fYLogScale);
+//-----------------------------------------------------------------------------
+// fit histogram
+//-----------------------------------------------------------------------------
+  if (Hist->fLineColor > 0) hpx1->SetLineColor(Hist->fLineColor);
+  hpx1->SetLineWidth(1);
+  hpx1->SetTitle("");
+  if (Hist->fXMin < Hist->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist->fXMin,Hist->fXMax);
+  if (Hist->fXAxisTitle != ""  ) hpx1->GetXaxis()->SetTitle(Hist->fXAxisTitle.Data());
+  hpx1->Fit("gaus",FOpt,GOpt,XMin,XMax);
+//-----------------------------------------------------------------------------
+// position statbox - need to update the canvas first
+//-----------------------------------------------------------------------------
+  c->Modified();
+  c->Update();
+
+  if (Hist->fStats != 0) {
+    plot_stat_box(hpx1,Hist->fOptStat,0.6,0.5,0.9,0.9);
+  }
+//-----------------------------------------------------------------------------
+// add legend
+//-----------------------------------------------------------------------------
+  TLegend* leg = new TLegend(Hist->fLegendXMin,Hist->fLegendYMin,Hist->fLegendXMax,Hist->fLegendYMax);
+  leg->AddEntry(hpx1,Hist->fLabel.Data(),"pl");  // "pl"
+  leg->SetBorderSize(0);
+  leg->SetFillStyle(0);
+  leg->Draw();
+//-----------------------------------------------------------------------------
+// label the plot
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// write dataset names inside the plot
+//-----------------------------------------------------------------------------
+  TString label(ds->id());
+
+  if (Hist->fPlotLabel != "") label = Hist->fPlotLabel;
+					// lower left corner
+  draw_label_ndc(label.Data(),Hist->fLabelXMin,Hist->fLabelYMin,Hist->fLabelFontSize,Hist->fLabelFont); 
+
+  c->Modified(); c->Update();
+//-----------------------------------------------------------------------------
+// .png files are written into /png/ subdirectory
+//-----------------------------------------------------------------------------
+  if (Print == 1) {
+     printf("4XXXXXX%s\n",Hist->fOutputFn.Data());
+    if (Hist->fPlotName == "") {
+      Hist->fPlotName = Form("%s_fit_gaus",Hist->fName.Data());
+    }
+    c->Print(Form("%s/eps/%s.eps",gEnv->GetValue("FiguresDir","./"),Hist->fPlotName.Data())) ;
+  }
+
+  Hist->fCanvas   = c;
+}
+
+//-----------------------------------------------------------------------------
+// new interface, try to provide a smooth transition
+// so far, defined are only cases of NHist=1 and NHist=2
+//-----------------------------------------------------------------------------
+void plot_hist(hist_data_t* Hist, int NHist, int Print = 1) {
+  plot_hist_1d(Hist,NHist,Print);
+}
+
+#endif
+
+
+
+
+
+int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "pdf") {
   
   char figure_name[200];
 //-----------------------------------------------------------------------------
@@ -618,7 +719,7 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "eps") {
 
   if (Plot->fXMin < Plot->fXMax) hpx1->GetXaxis()->SetRangeUser(Plot->fXMin,Plot->fXMax);
   if (Hist1->fXMin < Hist1->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
-  
+ 
   if (Plot->fXAxisTitle != ""  ) hpx1->GetXaxis()->SetTitle(Plot->fXAxisTitle.Data());
 
   if (Plot->fYMin < Plot->fYMax) hpx1->GetYaxis()->SetRangeUser(Plot->fYMin,Plot->fYMax);
@@ -739,10 +840,10 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "eps") {
 
     // set the same limits as Hist1
     if (Plot->fXMin < Plot->fXMax) hpx2->GetXaxis()->SetRangeUser(Plot->fXMin,Plot->fXMax);
-    if (Hist1->fXMin < Hist1->fXMax) hpx2->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
+    if (Hist2->fXMin < Hist2->fXMax) hpx2->GetXaxis()->SetRangeUser(Hist2->fXMin,Hist2->fXMax);
    
-    hpx1->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
-    hpx2->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
+    // hpx1->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
+    // hpx2->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
     if (Hist2->fStats == 0) hpx2->SetStats(0);
 
     if (Hist2->fDrawOpt == "") hpx2->Draw("ep,sames");
@@ -838,98 +939,3 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "eps") {
 }
 
 
-//-----------------------------------------------------------------------------
-// perform a fairly common task - fit histogram with a gaussian
-// HistName like "spmc_1/mom"
-//-----------------------------------------------------------------------------
-void fit_gaus_hist_1D(hist_data_t* Hist, const char* FOpt, const char* GOpt, double XMin, double XMax, int Print = 1) {
-
-  char figure_name[200];
-
-  TString hname(Hist->fName);
-
-  if (Hist->fNewName == "") hname.ReplaceAll("/","_");
-  else                      hname = Hist->fNewName;
-
-  hist_file_t*   hf = Hist->fFile;
-  stn_dataset_t* ds = hf->fDataset;
-  
-  TH1F* hpx1 = (TH1F*) gh1(hf->GetName(),Hist->fModule,Hist->fName)->Clone(hname);
-  Hist->fHist = hpx1;
-
-  if (Hist->fRebin > 0) hpx1->Rebin(Hist->fRebin);
-//-----------------------------------------------------------------------------
-// create a canvas
-//-----------------------------------------------------------------------------
-  TString canvas_name(Hist->fModule);
-  canvas_name += "_";
-  canvas_name += hname;
-  canvas_name += "_fit_gaus";
-  canvas_name += "_";
-  canvas_name += Hist->fName;
-  
-  if (Hist->fCanvasName != "") canvas_name = Hist->fCanvasName;
-  TCanvas* c = new TCanvas(canvas_name.Data(),canvas_name.Data(),Hist->fCanvasSizeX,Hist->fCanvasSizeY);
-  c->SetLogy(Hist->fYLogScale);
-//-----------------------------------------------------------------------------
-// fit histogram
-//-----------------------------------------------------------------------------
-  if (Hist->fLineColor > 0) hpx1->SetLineColor(Hist->fLineColor);
-  hpx1->SetLineWidth(1);
-  hpx1->SetTitle("");
-  if (Hist->fXMin < Hist->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist->fXMin,Hist->fXMax);
-  if (Hist->fXAxisTitle != ""  ) hpx1->GetXaxis()->SetTitle(Hist->fXAxisTitle.Data());
-  hpx1->Fit("gaus",FOpt,GOpt,XMin,XMax);
-//-----------------------------------------------------------------------------
-// position statbox - need to update the canvas first
-//-----------------------------------------------------------------------------
-  c->Modified();
-  c->Update();
-
-  if (Hist->fStats != 0) {
-    plot_stat_box(hpx1,Hist->fOptStat,0.6,0.5,0.9,0.9);
-  }
-//-----------------------------------------------------------------------------
-// add legend
-//-----------------------------------------------------------------------------
-  TLegend* leg = new TLegend(Hist->fLegendXMin,Hist->fLegendYMin,Hist->fLegendXMax,Hist->fLegendYMax);
-  leg->AddEntry(hpx1,Hist->fLabel.Data(),"pl");  // "pl"
-  leg->SetBorderSize(0);
-  leg->SetFillStyle(0);
-  leg->Draw();
-//-----------------------------------------------------------------------------
-// label the plot
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// write dataset names inside the plot
-//-----------------------------------------------------------------------------
-  TString label(ds->id());
-
-  if (Hist->fPlotLabel != "") label = Hist->fPlotLabel;
-					// lower left corner
-  draw_label_ndc(label.Data(),Hist->fLabelXMin,Hist->fLabelYMin,Hist->fLabelFontSize,Hist->fLabelFont); 
-
-  c->Modified(); c->Update();
-//-----------------------------------------------------------------------------
-// .png files are written into /png/ subdirectory
-//-----------------------------------------------------------------------------
-  if (Print == 1) {
-     printf("4XXXXXX%s\n",Hist->fOutputFn.Data());
-    if (Hist->fPlotName == "") {
-      Hist->fPlotName = Form("%s_fit_gaus",Hist->fName.Data());
-    }
-    c->Print(Form("%s/eps/%s.eps",gEnv->GetValue("FiguresDir","./"),Hist->fPlotName.Data())) ;
-  }
-
-  Hist->fCanvas   = c;
-}
-
-//-----------------------------------------------------------------------------
-// new interface, try to provide a smooth transition
-// so far, defined are only cases of NHist=1 and NHist=2
-//-----------------------------------------------------------------------------
-void plot_hist(hist_data_t* Hist, int NHist, int Print = 1) {
-  plot_hist_1d(Hist,NHist,Print);
-}
-
-#endif

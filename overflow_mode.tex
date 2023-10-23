@@ -1,8 +1,8 @@
-\section{Full buffer mode: RUN281}
+\section{Overflow mode: RUN281}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Time distribution}
-The analysis started analyzing the data time distribution of each channel.
-After a preliminary observation of the distributions, we saw a different patterns for channels in the first FPGA and in the second FPGA,
+The analysis started examining the data time distribution of each channel.
+After a preliminary observation of the distributions, we saw different patterns for channels in the first FPGA and in the second FPGA,
 as illustrated in Fig. \ref{fig:1}: the initial though  was the occurrence of a cessation in data acquisition for specific channels at a certain time.
 
 \begin{figure}[H]
@@ -28,7 +28,7 @@ as illustrated in Fig. \ref{fig:1}: the initial though  was the occurrence of a 
 \end{figure}
 We thought it was necessary to characterize the apparatus with a Monte Carlo simulation for our Data Acquisition (DAQ) system, in order to understand the interruptions,
 so we redirect to section \ref{MonteCarlo} for further information.
-\subsection{nh vs ch}
+\subsection{Occupancy: Number of hits versus channel}
 We conducted an analysis by plotting the number of hits in each channel as a function of the channel number, which revealed a non-uniform distribution. 
 Specifically, channels were arranged in an ascending order, spanning from channel 0 to channel 95.
 As second step, we managed to generate a histogram with an alternative channel order, as we would expect the filling to occur.
@@ -63,7 +63,7 @@ Consequently, we have identified a revised channel sequence, verified also by th
 At this point we have plotted the number of hits versus the channel number in the order that the filling occurred, as we can see in Fig. \ref{fig:2}.
 \begin{figure}[!h]
 \centering
-\includegraphics[width =0.8\textwidth]{pdf/figure_00004_nhitsvschannel_roc_simulation_2}
+\includegraphics[width =0.8\textwidth]{figures/pdf/figure_00004_nhitsvschannel_roc_simulation_2}
 \caption{Occupancy: number of hits versus channel. The ordering of channels adheres to the sequence prescribed by the Monte Carlo simulation.}
 \label{fig:2}
 \end{figure}
@@ -71,12 +71,18 @@ We can see a perfect adherence between data and simulation. We can interpret the
 corresponds to the ones in which we accumulate 4 hits (associated with the first FPGA) and 3 hits (associated with the second FPGA). 
 Subsequently, we observe a contrasting group of channels where the pattern reverses, 3 hits from the first FPGA followed by 4 hits from the second FPGA.
 We can observe a little jump in the middle and it is due to channel to channel time differences.
-Time differences are three order of magnitude less than the FPGA ones, so these little jumps are very few, in our case only one appears.
+Time differences between channels are three order of magnitude less than the FPGA ones, so these little jumps are very few, in our case only one appears.
 Lastly, the concluding cluster of channels is comprised of those collecting 3 hits from the first FPGA and 3 hits from the second FPGA.
 
 
 
-\subsection{nhits}
+\subsection{Number of hits}
+\begin{figure}[!h]
+\centering
+\includegraphics[width =0.8\textwidth]{figures/pdf/figure_00008_nhits_8}
+\caption{Number of hits distribution.}
+\label{fig:2}
+\end{figure}
 
 
 %%% Local Variables:

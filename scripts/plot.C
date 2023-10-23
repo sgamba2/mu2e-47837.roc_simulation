@@ -66,12 +66,12 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist");
+    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/nh_vs_adc_1");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
 
-    p.hd[0].fNewName       = "RUN105023-data";
+    p.hd[0].fNewName       = "RUN105038-data";
     // p.hd[0].fRebin         =  1;
     // p.hd[0].fLabel         = "end of Stage1"; // "mom";
     p.hd[0].fLabelFontSize = 0.04;
@@ -83,11 +83,11 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
      p.hd[0].fMarkerStyle   = 20;
      p.hd[0].fMarkerSize    = 0.3;
 
-     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105023.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105038.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
      TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nh_vs_adc");
 
     p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
-    p.hd[1].fNewName       = "RUN105023-MC";
+    p.hd[1].fNewName       = "RUN105038-MC";
     // p.hd[1].fRebin         =  1;
     // p.hd[1].fLabel         = "end of Stage2"; // "mom";
      p.hd[1].fLabelFontSize = 0.04;
@@ -125,12 +125,12 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist");
+    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/ch_00/ch_00_time0");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
 
-    p.hd[0].fNewName       = "RUN105023-data";
+    p.hd[0].fNewName       = "RUN105038-data";
     // p.hd[0].fRebin         =  1;
     // p.hd[0].fLabel         = "end of Stage1"; // "mom";
     p.hd[0].fLabelFontSize = 0.04;
@@ -161,6 +161,8 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fYLogScale     =  1;
     p.fXMin          =  0.;
     p.fXMax          = 30.;
+    p.fYMin          = 1.e2;
+    p.fYMax          = 2.e4;
     p.fXAxisTitle    = "Time [ns]";
     p.fYAxisTitle    = "counts";
     p.fYTitFormat    = "";
@@ -170,6 +172,64 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
     p.fName          = Form("figure_%05i_timedistr_roc_simulation_1",Figure);
+
+    plot_hist_1d(&p,1,Format);
+    // add whatever else you want
+    if (Print > 0) p.print();
+  }
+  else if (Figure == 12) {
+    plot_data_t          p(2);
+    
+    // const char* dsid   = "su2020.bmum0s16b0";
+    // const char* dsid2  = "su2020.bmum0s26b0";
+    
+    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
+    TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/ch_02/ch_02_time0");
+
+    p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
+
+    p.hd[0].fNewName       = "RUN105038-data";
+    // p.hd[0].fRebin         =  1;
+    // p.hd[0].fLabel         = "end of Stage1"; // "mom";
+    p.hd[0].fLabelFontSize = 0.04;
+     p.hd[0].fMarkerColor   = kRed+1;
+     p.hd[0].fLineColor     = kRed+1;
+     p.hd[0].fFillStyle     = 3005;
+     p.hd[0].fFillColor     = kRed+1;
+     p.hd[0].fDrawOpt       = "hist";
+     p.hd[0].fMarkerStyle   = 20;
+     p.hd[0].fMarkerSize    = 0.3;
+
+     /*TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105023.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/ch_00/time_00");
+
+    p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
+    p.hd[1].fNewName       = "RUN105023-MC";
+    // p.hd[1].fRebin         =  1;
+    // p.hd[1].fLabel         = "end of Stage2"; // "mom";
+     p.hd[1].fLabelFontSize = 0.04;
+     p.hd[1].fMarkerColor   = kBlue+2;
+     p.hd[1].fLineColor     = kBlue+2;
+     p.hd[1].fFillStyle     = 3004;
+     p.hd[1].fFillColor     = kBlue+1;
+     p.hd[1].fDrawOpt       = "hist";
+     p.hd[1].fMarkerStyle   = 20;
+     p.hd[1].fMarkerSize    = 0.3;
+     p.hd[1].fScale         = 2;*/
+    p.fYLogScale     =  1;
+    p.fXMin          =  0.;
+    p.fXMax          = 30.;
+    p.fYMin          = 1.e2;
+    p.fYMax          = 2.e4;
+    p.fXAxisTitle    = "Time [ns]";
+    p.fYAxisTitle    = "counts";
+    p.fYTitFormat    = "";
+    p.fLabel         = "Time distribution: data and MC for channel 2 - 2nd FPGA";
+    p.fLabelXMin     = 0.15;
+    p.fLabelYMin     = 0.87;
+    p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
+    p.fCanvasName    = Form("Figure_%04i",Figure);
+    p.fName          = Form("figure_%05i_timedistr_roc_simulation_ch2",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -290,62 +350,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     if (Print > 0) p.print();
   }
 //--
-  else if (Figure == 5) {
-    plot_data_t          p(2);
-    
-    // const char* dsid   = "su2020.bmum0s16b0";
-    // const char* dsid2  = "su2020.bmum0s26b0";
-    
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
-    TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/nhits");
-
-    p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
-
-    p.hd[0].fNewName       = "RUN281-data";
-    // p.hd[0].fRebin         =  1;
-    // p.hd[0].fLabel         = "end of Stage1"; // "mom";
-    p.hd[0].fLabelFontSize = 0.04;
-     p.hd[0].fMarkerColor   = kRed+1;
-     p.hd[0].fLineColor     = kRed+1;
-     p.hd[0].fFillStyle     = 3005;
-     p.hd[0].fFillColor     = kRed+1;
-     p.hd[0].fDrawOpt       = "hist";
-     p.hd[0].fMarkerStyle   = 20;
-     p.hd[0].fMarkerSize    = 0.3;
-
-     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.000281.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
-     TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nrh_tot");
-
-    p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
-    p.hd[1].fNewName       = "RUN281-MC";
-    // p.hd[1].fRebin         =  1;
-    // p.hd[1].fLabel         = "end of Stage2"; // "mom";
-     p.hd[1].fLabelFontSize = 0.04;
-     p.hd[1].fMarkerColor   = kBlue+2;
-     p.hd[1].fLineColor     = kBlue+2;
-     p.hd[1].fFillStyle     = 3004;
-     p.hd[1].fFillColor     = kBlue+1;
-     p.hd[1].fDrawOpt       = "hist";
-     p.hd[1].fMarkerStyle   = 20;
-     p.hd[1].fMarkerSize    = 0.3;
-     p.hd[1].fScale         = 2;
-    p.fYLogScale     =  1;
-    p.fXMin          =  0.;
-    p.fXMax          =300.;
-    p.fXAxisTitle    = "nhits";
-    p.fYAxisTitle    = "counts";
-    p.fYTitFormat    = "";
-    p.fLabel         = "Number of hits";
-    p.fLabelXMin     = 0.15;
-    p.fLabelYMin     = 0.87;
-    p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
-    p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_nhits_5",Figure);
-
-    plot_hist_1d(&p,1,Format);
-    // add whatever else you want
-    if (Print > 0) p.print();
-  }
+ 
   else if (Figure == 6) {
     plot_data_t          p(2);
     
@@ -460,7 +465,123 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // add whatever else you want
     if (Print > 0) p.print();
   }
+ else if (Figure == 8) {
+    plot_data_t          p(2);
+    
+    // const char* dsid   = "su2020.bmum0s16b0";
+    // const char* dsid2  = "su2020.bmum0s26b0";
+    
+    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
+    TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/nhits");
 
+    p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
+
+    p.hd[0].fNewName       = "RUN281-data";
+    // p.hd[0].fRebin         =  1;
+    // p.hd[0].fLabel         = "end of Stage1"; // "mom";
+    p.hd[0].fLabelFontSize = 0.04;
+     p.hd[0].fMarkerColor   = kRed+1;
+     p.hd[0].fLineColor     = kRed+1;
+     p.hd[0].fFillStyle     = 3005;
+     p.hd[0].fFillColor     = kRed+1;
+     p.hd[0].fDrawOpt       = "hist";
+     p.hd[0].fMarkerStyle   = 20;
+     p.hd[0].fMarkerSize    = 0.3;
+
+     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.000281.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nrh_tot");
+
+    p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
+    p.hd[1].fNewName       = "RUN281-MC";
+    // p.hd[1].fRebin         =  1;
+    // p.hd[1].fLabel         = "end of Stage2"; // "mom";
+     p.hd[1].fLabelFontSize = 0.04;
+     p.hd[1].fMarkerColor   = kBlue+2;
+     p.hd[1].fLineColor     = kBlue+2;
+     p.hd[1].fFillStyle     = 3004;
+     p.hd[1].fFillColor     = kBlue+1;
+     p.hd[1].fDrawOpt       = "hist";
+     p.hd[1].fMarkerStyle   = 20;
+     p.hd[1].fMarkerSize    = 0.3;
+     p.hd[1].fScale         = 2;
+    p.fYLogScale     =  1;
+    p.fXMin          =  200.;
+    p.fXMax          = 300.;
+    p.fYMin          =  1.;
+    p.fYMax          = 3.e6;
+    p.fXAxisTitle    = "nhits";
+    p.fYAxisTitle    = "counts";
+    p.fYTitFormat    = "";
+    p.fLabel         = "Number of Hits";
+    p.fLabelXMin     = 0.15;
+    p.fLabelYMin     = 0.87;
+    p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
+    p.fCanvasName    = Form("Figure_%04i",Figure);
+    p.fName          = Form("figure_%05i_nhits_8",Figure);
+
+    plot_hist_1d(&p,1,Format);
+    // add whatever else you want
+    if (Print > 0) p.print();
+  }
+else if (Figure == 9) {
+    plot_data_t          p(2);
+    
+    // const char* dsid   = "su2020.bmum0s16b0";
+    // const char* dsid2  = "su2020.bmum0s26b0";
+    
+    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
+    TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/nhits");
+
+    p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
+
+    p.hd[0].fNewName       = "RUN105038-data";
+    // p.hd[0].fRebin         =  1;
+    // p.hd[0].fLabel         = "end of Stage1"; // "mom";
+    p.hd[0].fLabelFontSize = 0.04;
+     p.hd[0].fMarkerColor   = kRed+1;
+     p.hd[0].fLineColor     = kRed+1;
+     p.hd[0].fFillStyle     = 3005;
+     p.hd[0].fFillColor     = kRed+1;
+     p.hd[0].fDrawOpt       = "hist";
+     p.hd[0].fMarkerStyle   = 20;
+     p.hd[0].fMarkerSize    = 0.3;
+
+     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105038.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nrh_tot");
+
+    p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
+    p.hd[1].fNewName       = "RUN105038-MC";
+    // p.hd[1].fRebin         =  1;
+    // p.hd[1].fLabel         = "end of Stage2"; // "mom";
+     p.hd[1].fLabelFontSize = 0.04;
+     p.hd[1].fMarkerColor   = kBlue+2;
+     p.hd[1].fLineColor     = kBlue+2;
+     p.hd[1].fFillStyle     = 3004;
+     p.hd[1].fFillColor     = kBlue+1;
+     p.hd[1].fDrawOpt       = "hist";
+     p.hd[1].fMarkerStyle   = 20;
+     p.hd[1].fMarkerSize    = 0.3;
+     p.hd[1].fScale         = 2;
+    p.fYLogScale     =  1;
+    p.fXMin          =  140.;
+    p.fXMax          = 220.;
+    p.fYMin          =  .5;
+    p.fYMax          = 3.e5;
+    p.fXAxisTitle    = "nhits";
+    p.fYAxisTitle    = "counts";
+    p.fYTitFormat    = "";
+    p.fLabel         = "Number of Hits";
+    p.fLabelXMin     = 0.15;
+    p.fLabelYMin     = 0.87;
+    p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
+    p.fCanvasName    = Form("Figure_%04i",Figure);
+    p.fName          = Form("figure_%05i_nhits_9",Figure);
+
+    plot_hist_1d(&p,1,Format);
+    // add whatever else you want
+    if (Print > 0) p.print();
+  }
+  
   else {
     printf (" ERROR unknown Figure: %6i\n",Figure);
     return;

@@ -1,14 +1,14 @@
 \BOOKMARK [1][-]{section.1}{Notes for the authors}{}% 1
 \BOOKMARK [2][-]{subsection.1.1}{Revision history}{section.1}% 2
 \BOOKMARK [1][-]{section.2}{Introduction to the analysis}{}% 3
-\BOOKMARK [1][-]{section.3}{Full buffer mode: RUN281}{}% 4
-\BOOKMARK [2][-]{subsection.3.1}{Time distribution}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.2}{nh vs ch}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.3}{nhits}{section.3}% 7
-\BOOKMARK [1][-]{section.4}{buffer not full}{}% 8
-\BOOKMARK [2][-]{subsection.4.1}{Time distribution}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.2}{nh vs ch}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.3}{nhits}{section.4}% 11
-\BOOKMARK [1][-]{section.5}{Monte Carlo simulation}{}% 12
+\BOOKMARK [1][-]{section.3}{Monte Carlo simulation}{}% 4
+\BOOKMARK [1][-]{section.4}{Full buffer mode: RUN281}{}% 5
+\BOOKMARK [2][-]{subsection.4.1}{Time distribution}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.2}{nh vs ch}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.3}{nhits}{section.4}% 8
+\BOOKMARK [1][-]{section.5}{buffer not full}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{Time distribution}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{nh vs ch}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.3}{nhits}{section.5}% 12
 \BOOKMARK [1][-]{section.6}{rate}{}% 13
 \BOOKMARK [1][-]{section.7}{Summary}{}% 14

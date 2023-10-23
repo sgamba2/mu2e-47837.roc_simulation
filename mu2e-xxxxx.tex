@@ -176,11 +176,23 @@ and readout counts can be summarized as follows:
     \item $N_{gen} \ < \ $255: $N_{readout} \ = \ N_{gen}$;
     \item $N_{gen} \ \geq \ $255: $N_{readout} \ = \ 255$.
 \end{itemize}
+\section{Monte Carlo simulation}\label{MonteCarlo}
+To ensure a comprehensive understanding of our system, we initiated a Monte Carlo Simulation of our Data Acquisition (DAQ) system. 
+Given that the maximum allowable number of hits per event is 255, the simulation protocol adheres to the following sequential steps:
+\begin{itemize}
+  \item Within a time interval ranging from 0 $\mu$s to the reciprocal of the generator frequency, we generated the first event ($t_0$) by following a uniform distribution;
+    \item After verified that hits from the same channel, are separated by an interval equivalent to the reciprocal of the generator frequency, we proceeded to 
+      generate the second event ($t_1$) by summing this specific time increment to $t_0$;
+      \item Subsequently, we verified whether the second pulse remained within the predefined time window. If it did, we included this hit in the ongoing event under construction;
+      \item The process of event creation continued until the count of hits reached the maximum threshold of 255, at which point the event construction was terminated.
+\end{itemize}
+Furthermore, the simulation accounts for the channel to channel and FPGA to FPGA delays. 
+This comprehensive approach ensures a faithful representation of the real-world operational aspects of the DAQ system.
 \section{Full buffer mode: RUN281}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Time distribution}
 The analysis started analyzing the data time distribution of each channel.
-After a preliminary observation of the distributions, we saw a different pattern for channels in the first FPGA and in the second FPGA,
+After a preliminary observation of the distributions, we saw a different patterns for channels in the first FPGA and in the second FPGA,
 as illustrated in Fig. \ref{fig:1}: the initial though  was the occurrence of a cessation in data acquisition for specific channels at a certain time.
 
 \begin{figure}[H]
@@ -201,20 +213,64 @@ as illustrated in Fig. \ref{fig:1}: the initial though  was the occurrence of a 
   \end{tikzpicture}
   \caption{
     \label{fig:1}
-    right: First FPGA's channel time distribution, right: Second FPGA's channel time distribution.
+    right: First FPGA's channel time distribution, left: Second FPGA's channel time distribution.
   }
 \end{figure}
 We thought it was necessary to characterize the apparatus with a Monte Carlo simulation for our Data Acquisition (DAQ) system, in order to understand the interruptions,
-so we redirect to section \ref{MC} for further information.
+so we redirect to section \ref{MonteCarlo} for further information.
 \subsection{nh vs ch}
-At this point we have plotted the number of hits versus the channel number in the order that we expected, as we can see in Fig. \ref{fig:2}.
+We conducted an analysis by plotting the number of hits in each channel as a function of the channel number, which revealed a non-uniform distribution. 
+Specifically, channels were arranged in an ascending order, spanning from channel 0 to channel 95.
+As second step, we managed to generate a histogram with an alternative channel order, as we would expect the filling to occur.
+Our expectation was to observe a declining trend in the number of hits per channel, primarily due to the progressive filling of the buffer. 
+However, contrary to our initial hypothesis, we encountered a distinctive pattern in which the number of hits exhibited a decrease until reaching zero hits at a specific channel,
+followed by a subsequent increase beyond the 72nd channel, which corresponds to channel 95.
+Upon careful examination, we deduced that the initial channel ordering was incorrect. 
+Consequently, we have identified a revised channel sequence, verified also by the Monte Carlo simulation, which is as follows:
+\begin{center}
+\begin{tabular}{cc}
+\textbf{FIST FPGA}: & \\
+\textit{CAL0}: & \\
+\textit{lane 1}& 91,85,79,73,67,61,55,49,\\
+\textit{lane 2}&43,37,31,25,19,13,7,1,\\
+\textit{lane 3}&90,84,78,72,66,60,54,48,\\
+\textit{CAL1}:&\\
+\textit{lane 1}&42,36,30,24,18,12,6,0,\\
+\textit{lane 2}&93,87,81,75,69,63,57,51,\\
+\textit{lane 3}&45,39,33,27,21,15,9,3,\\
+\textbf{SECOND FPGA}:&\\
+\textit{HV0}:&\\
+\textit{lane 1}&38,44,5,11,17,23,29,35,\\
+\textit{lane 2}&41,92,2,8,14,20,26,32,\\
+\textit{lane 3}&86,80,74,68,62,56,50,47,\\
+\textit{HV1}: & \\
+\textit{lane 1}&95,89,83,22,16,28,34,40,\\
+\textit{lane 2}&46,53,59,65,71,77,10,4,\\
+\textit{lane 3}&94,88,82,76,70,64,58,52\\
+\end{tabular}
+\end{center}   
+At this point we have plotted the number of hits versus the channel number in the order that the filling occurred, as we can see in Fig. \ref{fig:2}.
+\begin{figure}[!h]
+\centering
+\includegraphics[width =0.8\textwidth]{pdf/figure_00004_nhitsvschannel_roc_simulation_2}
+\caption{Occupancy: number of hits versus channel. The ordering of channels adheres to the sequence prescribed by the Monte Carlo simulation.}
+\label{fig:2}
+\end{figure}
+We can see a perfect adherence between data and simulation. We can interpret the histogram as it follows: the initial group of channels in the histogram,
+corresponds to the ones in which we accumulate 4 hits (associated with the first FPGA) and 3 hits (associated with the second FPGA). 
+Subsequently, we observe a contrasting group of channels where the pattern reverses, 3 hits from the first FPGA followed by 4 hits from the second FPGA.
+We can observe a little jump in the middle and it is due to channel to channel time difference.
+Lastly, the concluding cluster of channels is comprised of those collecting 3 hits from the first FPGA and 3 hits from the second FPGA.
+
+
+
 \subsection{nhits}
 
 \section{buffer not full}
 \subsection{Time distribution}
 \subsection{nh vs ch}
 \subsection{nhits}
-\section{Monte Carlo simulation}\label{MC}
+
 \section{rate}
 
 

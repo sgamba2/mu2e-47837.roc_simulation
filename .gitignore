@@ -1,15 +1,16 @@
-<<<<<<< HEAD
 #
 auto
 tmp
 *.*~
 *~
+*.aux
+*.log
+*.toc
+*.out
 
 # python
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-=======
 tmp
->>>>>>> 7686a8e (nitial commit)

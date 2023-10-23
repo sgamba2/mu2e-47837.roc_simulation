@@ -233,7 +233,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // add whatever else you want
     if (Print > 0) p.print();
   }
-  if (Figure == 4) {
+  else if (Figure == 4) {
     plot_data_t          p(2);
     
     // const char* dsid   = "su2020.bmum0s16b0";

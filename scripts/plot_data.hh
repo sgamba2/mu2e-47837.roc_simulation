@@ -4,7 +4,7 @@
 #ifndef __Stntuple_val_plot_data_hh__
 #define __Stntuple_val_plot_data_hh__
 
-#include "Stntuple/val/hist_data.hh"
+#include "hist_data.hh"
 
 #include "TString.h"
 #include "TCanvas.h"

@@ -9,7 +9,7 @@
 // compare two histograms with different ModuleName/HistName's from two different files
 // HistName like "spmc_1/mom"
 //-----------------------------------------------------------------------------
-void plot_hist_1D(hist_data_t* Hist1,  hist_data_t*  Hist2, int Print = 0) {
+void plot_hist_1D(hist_data_t* Hist1,  hist_data_t*  Hist2, int Print = 1) {
 
   printf("WARNING: plot_hist_1D(hist_data_t*,...) is OBSOLETE, use plot_hist_1D(plot_data_t*, ...)\n");
   
@@ -214,6 +214,7 @@ void plot_hist_1D(hist_data_t* Hist1,  hist_data_t*  Hist2, int Print = 0) {
   
   Hist1->fOutputFn = Form("%s/eps/%s.eps",gEnv->GetValue("FiguresDir","./"),Hist1->fPlotName.Data());
   if (Print == 1) {
+     printf("2XXXXXX%s\n",Hist1->fOutputFn.Data());
     c->Print(Form("%s",Hist1->fOutputFn.Data())) ;
   }
   
@@ -226,7 +227,7 @@ void plot_hist_1D(hist_data_t* Hist1,  hist_data_t*  Hist2, int Print = 0) {
 // other ones - not necessarily
 // may have the problem with namng the output file
 //-----------------------------------------------------------------------------
-int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 0) {
+int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 1) {
   
   printf("WARNING: plot_hist_1D(hist_data_t*,...) is OBSOLETE, use plot_hist_1D(plot_data_t*, ...)\n");
 
@@ -522,6 +523,7 @@ int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 0) {
   
   Hist1->fOutputFn = Form("%s/eps/%s.eps",gEnv->GetValue("FiguresDir","."),Hist1->fPlotName.Data());
   if (Print == 1) {
+     printf("3XXXXXX%s\n",Hist1->fOutputFn.Data());
     c->Print(Form("%s",Hist1->fOutputFn.Data())) ;
   }
   Hist1->fCanvas   = c;
@@ -534,7 +536,7 @@ int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 0) {
 // other ones - not necessarily
 // may have the problem with namng the output file
 //-----------------------------------------------------------------------------
-int plot_hist_1d(plot_data_t* Plot, int Print = 0, const char* Format = "eps") {
+int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "eps") {
   
   char figure_name[200];
 //-----------------------------------------------------------------------------
@@ -674,8 +676,8 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 0, const char* Format = "eps") {
 
     if (Hist2->fHist == nullptr) {
       printf("plot_hist_1d ERROR: ihist = %i Hist2->fHist == NULL, BAIL OUT\n",ihist);
-      return -1;
-    }
+      //return -1;
+    }else{
     
     TString h2name(Hist2->fName);
     if (Hist2->fNewName == "") h2name.ReplaceAll("/","_");
@@ -827,10 +829,11 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 0, const char* Format = "eps") {
   ext.ToLower();
   Plot->fOutputFn = Form("%s/%s/%s.%s",gEnv->GetValue("FiguresDir","./"),ext.Data(),Plot->fName.Data(),ext.Data());
   if (Print == 1) {
+    
     c->Print(Form("%s",Plot->fOutputFn.Data())) ;
   }
   Plot->fCanvas   = c;
-
+  }
   return 0;
 }
 
@@ -839,7 +842,7 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 0, const char* Format = "eps") {
 // perform a fairly common task - fit histogram with a gaussian
 // HistName like "spmc_1/mom"
 //-----------------------------------------------------------------------------
-void fit_gaus_hist_1D(hist_data_t* Hist, const char* FOpt, const char* GOpt, double XMin, double XMax, int Print = 0) {
+void fit_gaus_hist_1D(hist_data_t* Hist, const char* FOpt, const char* GOpt, double XMin, double XMax, int Print = 1) {
 
   char figure_name[200];
 
@@ -911,6 +914,7 @@ void fit_gaus_hist_1D(hist_data_t* Hist, const char* FOpt, const char* GOpt, dou
 // .png files are written into /png/ subdirectory
 //-----------------------------------------------------------------------------
   if (Print == 1) {
+     printf("4XXXXXX%s\n",Hist->fOutputFn.Data());
     if (Hist->fPlotName == "") {
       Hist->fPlotName = Form("%s_fit_gaus",Hist->fName.Data());
     }
@@ -924,7 +928,7 @@ void fit_gaus_hist_1D(hist_data_t* Hist, const char* FOpt, const char* GOpt, dou
 // new interface, try to provide a smooth transition
 // so far, defined are only cases of NHist=1 and NHist=2
 //-----------------------------------------------------------------------------
-void plot_hist(hist_data_t* Hist, int NHist, int Print = 0) {
+void plot_hist(hist_data_t* Hist, int NHist, int Print = 1) {
   plot_hist_1d(Hist,NHist,Print);
 }
 

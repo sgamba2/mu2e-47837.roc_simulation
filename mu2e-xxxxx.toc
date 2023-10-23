@@ -2,9 +2,14 @@
 \contentsline {section}{\numberline {1}Notes for the authors}{2}{section.1}
 \contentsline {subsection}{\numberline {1.1}Revision history}{2}{subsection.1.1}
 \contentsline {section}{\numberline {2}Introduction to the analysis}{2}{section.2}
-\contentsline {section}{\numberline {3}Time distribution}{2}{section.3}
-\contentsline {section}{\numberline {4}Datasets}{3}{section.4}
-\contentsline {section}{\numberline {5}Momentum distributions of the beam particles }{4}{section.5}
-\contentsline {section}{\numberline {6}Beam electrons}{4}{section.6}
-\contentsline {subsection}{\numberline {6.1}Electrons Entering the Detector Envelope}{4}{subsection.6.1}
-\contentsline {section}{\numberline {7}Summary}{5}{section.7}
+\contentsline {section}{\numberline {3}Full buffer mode: RUN281}{2}{section.3}
+\contentsline {subsection}{\numberline {3.1}Time distribution}{2}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}nh vs ch}{3}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}nhits}{3}{subsection.3.3}
+\contentsline {section}{\numberline {4}buffer not full}{3}{section.4}
+\contentsline {subsection}{\numberline {4.1}Time distribution}{3}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}nh vs ch}{3}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}nhits}{3}{subsection.4.3}
+\contentsline {section}{\numberline {5}Monte Carlo simulation}{3}{section.5}
+\contentsline {section}{\numberline {6}rate}{3}{section.6}
+\contentsline {section}{\numberline {7}Summary}{4}{section.7}

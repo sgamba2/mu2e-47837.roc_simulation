@@ -7,7 +7,7 @@
 #include "TNamed.h"
 #include "TObjArray.h"
 
-#include "Stntuple/val/hist_file.hh"
+#include "hist_file.hh"
 
 class stn_book;
 

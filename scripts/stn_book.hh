@@ -7,8 +7,8 @@
 #include "TString.h"
 #include "TObjArray.h"
 
-#include "Stntuple/val/hist_file.hh"
-#include "Stntuple/val/stn_dataset.hh"
+#include "hist_file.hh"
+#include "stn_dataset.hh"
 
 class stn_catalog;
 //-----------------------------------------------------------------------------

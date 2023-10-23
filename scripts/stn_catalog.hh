@@ -4,9 +4,9 @@
 #ifndef __Stntuple_val_stn_catalog_hh__
 #define __Stntuple_val_stn_catalog_hh__
 
-#include "Stntuple/val/stn_book.hh"
-#include "Stntuple/val/stn_dataset.hh"
-#include "Stntuple/val/hist_file.hh"
+#include "stn_book.hh"
+#include "stn_dataset.hh"
+#include "hist_file.hh"
 //-----------------------------------------------------------------------------
 // book is a list of datasets, list owns its pointers
 //-----------------------------------------------------------------------------

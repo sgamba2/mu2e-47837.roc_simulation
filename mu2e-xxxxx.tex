@@ -176,12 +176,12 @@ and readout counts can be summarized as follows:
     \item $N_{gen} \ < \ $255: $N_{readout} \ = \ N_{gen}$;
     \item $N_{gen} \ \geq \ $255: $N_{readout} \ = \ 255$.
 \end{itemize}
-
+\section{Full buffer mode: RUN281}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Time distribution}
-The analysis started the data time distribution 
-After a preliminary observation of the data time distribution, as illustrated in Fig. \ref{fig:1}, the initial though  was 
-the occurrence of a cessation in data acquisition for specific channels at a certain time.
+\subsection{Time distribution}
+The analysis started analyzing the data time distribution of each channel.
+After a preliminary observation of the distributions, we saw a different pattern for channels in the first FPGA and in the second FPGA,
+as illustrated in Fig. \ref{fig:1}: the initial though  was the occurrence of a cessation in data acquisition for specific channels at a certain time.
 
 \begin{figure}[H]
   \hspace{-0.5in}
@@ -189,118 +189,40 @@ the occurrence of a cessation in data acquisition for specific channels at a cer
     \node[anchor=south west,inner sep=0] at (0,0.) {
       % \node[shift={(0 cm,0.cm)},inner sep=0,rotate={90}] at (0,0) {}
       % \makebox[\textwidth][c] {
-      \includegraphics[width=0.5\textwidth]{figures/pdf/figure_04000_bmum0s5bb0_spmc_1_cth_vs_mom}
+      \includegraphics[width=0.5\textwidth]{figures/pdf/figure_00007_timedistr_roc_simulation_ch0}
       % }
     };
     \node[anchor=south west,inner sep=0] at (10,0.) {
       % \node[shift={(0 cm,0.cm)},inner sep=0,rotate={90}] at (0,0) {}
       % \makebox[\textwidth][c] {
-      \includegraphics[width=0.5\textwidth]{figures/pdf/figure_04001_bmum0s5bb0_spmc_1_cth_vs_mom}
+      \includegraphics[width=0.5\textwidth]{figures/pdf/figure_00003_timedistr_roc_simulation_ch2}
       % }
     };
   \end{tikzpicture}
   \caption{
     \label{fig:1}
-    Electrons from muon decays downstream VD9 entering the detector envelope
+    right: First FPGA's channel time distribution, right: Second FPGA's channel time distribution.
   }
 \end{figure}
+We thought it was necessary to characterize the apparatus with a Monte Carlo simulation for our Data Acquisition (DAQ) system, in order to understand the interruptions,
+so we redirect to section \ref{MC} for further information.
+\subsection{nh vs ch}
 At this point we have plotted the number of hits versus the channel number in the order that we expected, as we can see in Fig. \ref{fig:2}.
+\subsection{nhits}
 
-\begin{figure}[H]
-      \includegraphics[width=0.6\textwidth]{figures/pdf/figure_03700_bmum0s37b0_vdet_xx09_mom}
-  \caption{
-    \label{fig:2}
-    Left: momentum distributions of particles reaching VD9;
-    Right: momentum distributions at VD9 of particles stopped in the stopping target
-  }
-\end{figure}
-We thought it was necessary to characterize the apparatus with a Monte Carlo simulation for our Data Acquisition (DAQ) system, in order to understand the interruptions.
-
-\section {Datasets}
-
-The results presented in this note are based on the analysis of the \muminus\ beam {\bf bmum0}
-family of SU2020 datasets \cite{SU2020_DATASETS}, resimulated with the increased statistics
-of $1\times 10^9$ protons on target. The family includes the following datasets: 
-
-\begin{itemize}
-\item
-  bmum0s11b0: output of Stage1 simulation: muons produced in pA interactions at the production target are
-  traced to the plane in front of the TS31 collimator
-\item
-  bmum0s21b0: output of Stage1 simulation traced to the plane in front of TS5 collimator
-\item
-  bmum0s36b0: events with $p ~>~ 100 \MeVc$ electrons produced at Stage1 traced up to VD9
-  (virtual detector in front of the stopping target)
-\item
-  bmum0s37b0: (bmum0s27b0-bmum0s28b0) events traced up to VD9.
-  Those are events without $p ~>~ 100 \MeVc$ electrons in the end of Stage2
-\item
-  bmum0s38b0: events with $p ~>~ 100 \MeVc$ electrons produced at Stage2 traced up to VD9
-\item
-  bmum0s39b0: strip from bmum0s37b0, events with  $p ~>~ 100 \MeVc$ electrons produced in TS5 and
-  in the DS before the stopping target
-\item
-  bmum0s3ab0: strip from bmum0s37b0. Event withs $p ~>~ 100 \MeVc$ negative muon at VD9.
-  The dataset used to estimate background from muon scattering in the stopping target
-\item
-  bmum0s3ab0: strip from bmum0s37b0. Event withs $p ~>~ 100 \MeVc$ negative muon at VD9.
-  The dataset used to estimate background from muon scattering in the stopping target
-\item
-  bmum0s47b0: (bmum0s37b0 - bmum0s39b0) traced to VD10, virtual detector right after the stopping target.
-  Those are events which didn't have  $p ~>~ 100 \MeVc$ at VD9
-\item
-  bmum0s4bb0: strip from bmum0s47b0. Events with $p ~>~ 70 \MeVc$ mu- P>70 MeV/c at VD10.
-  The dataset used to estimate background from muon decays in flight.
-\item
-  bmum0s56b0: bmum0s36b0 traced through DS, selection of events with $p ~>~ 100 \MeVc$ electron entering
-  the detector (tracker+calorimeter) envelope volume. Resampling factor of 10,000
-\item
-  bmum0s58b0: bmum0s36b0 traced through DS, selection of events with $p ~>~ 100 \MeVc$ electron entering
-  the detector (tracker+calorimeter) envelope volume. Resampling factor of 10,000
-\item
-  bmum0s59b0: bmum0s36b0 traced through DS, selection of events with $p ~>~ 100 \MeVc$ electron entering
-  the detector (tracker+calorimeter) envelope volume. Resampling factor of 10,000
-\item
-  bmum0s5ab0: bmum0s3ab0 traced through DS, selection of events with a $p ~>~ 100 \MeVc$ muon
-  entering the detector envelope volume. Resampling factor of 10,000
-\item
-  bmum0s5bb0: bmum0s4bb0 traced through DS, selection of events with a $p ~>~ 100 \MeVc$ electron
-  entering the detector envelope volume. Resampling factor of 1,000.
-\end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section {Momentum distributions of the beam particles }
+\section{buffer not full}
+\subsection{Time distribution}
+\subsection{nh vs ch}
+\subsection{nhits}
+\section{Monte Carlo simulation}\label{MC}
+\section{rate}
 
 
-\begin{figure}[H]
-  \hspace{-0.5in}
-  \begin{tikzpicture}
-    \node[anchor=south west,inner sep=0] at (0,0.) {
-      % \node[shift={(0 cm,0.cm)},inner sep=0,rotate={90}] at (0,0) {}
-      % \makebox[\textwidth][c] {
-      \includegraphics[width=0.6\textwidth]{figures/pdf/figure_03700_bmum0s37b0_vdet_xx09_mom}
-      % }
-    };
-    \node[anchor=south west,inner sep=0] at (10,0.) {
-      % \node[shift={(0 cm,0.cm)},inner sep=0,rotate={90}] at (0,0) {}
-      % \makebox[\textwidth][c] {
-      \includegraphics[width=0.6\textwidth]{figures/pdf/figure_03100_bmum0s31b0_vdet_xx09_mom}
-      % }
-    };
-  \end{tikzpicture}
-  \caption{
-    \label{fig:03700_bmum0s37b0_vdet_xx09_mom}
-    Left: momentum distributions of particles reaching VD9;
-    Right: momentum distributions at VD9 of particles stopped in the stopping target
-  }
-\end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section {Beam electrons}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\subsection {Electrons Entering the Detector Envelope}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -324,34 +246,3 @@ Upper bounds on the direct beam-related backgrounds are as follows:
 
 \end{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% small font sizes: \small \footnotesize \scriptsize \tiny
-% ------------------------------------------------------------------------------
-% templates
-% ------------------------------------------------------------------------------
-% Table ~\ref{table:summary} gives summary the numbers used in this study.
-%
-% \hspace{-0.1in}
-% \begin{table}[htbp]
-%   \label{table:summary}
-%   \begin{center}
-%     {\renewcommand{\arraystretch}{1.0}   % change 1.0 to 1.1 to increase the spacing between the table lines
-%       \begin{tabular}{|c|c|c|c|}
-%         \hline
-%                             & default TS geometry & misaligned TS geometry   &  Ratio(default/misaligned)    \\
-%         \hline
-%         $N_{POT}$            &  $4.96 \cdot 10^6$  &    $5.00 \cdot 10^6$      &   0.992   \\
-%         $N_{\mu}^{TS3u}$      &  65648              &     61354                 &   1.070   \\
-%         $N_{\mu}^{TS5}$       &  28517              &     27351                 &   1.043   \\
-%         $N_{\mu}^{ST}$        &  8868               &      8396                 &   1.056   \\
-%         $N_{\mu}^{ST}/N_{POT}$ &  $1.79 \pm 0.02$    &    $1.68 \pm 0.02$        &   $1.065 \pm 0.03$        \\
-%         \hline
-%       \end{tabular}
-%     }
-%   \end{center}
-%   \caption{
-%     Muons rates at different points of the Mu2e beamline and stopping muon rates for nominal and
-%     misaligned TS geometries
-%   }
-%   % \vspace{0.5in}
-% \end{table}

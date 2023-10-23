@@ -110,7 +110,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_nhitsvschannel_roc_simulation_2",Figure);
+    p.fName          = Form("figure_%05i_nhitsvschannel_roc_simulation_281",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -171,7 +171,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_timedistr_roc_simulation_1",Figure);
+    p.fName          = Form("figure_%05i_timedistr_roc_simulation_10538",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -229,7 +229,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_timedistr_roc_simulation_ch2",Figure);
+    p.fName          = Form("figure_%05i_timedistr_roc_simulation_ch2_105038",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -287,7 +287,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_timedistr_roc_simulation_ch2",Figure);
+    p.fName          = Form("figure_%05i_timedistr_roc_simulation_ch2_281",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -343,7 +343,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_nhitsvschannel_roc_simulation_2",Figure);
+    p.fName          = Form("figure_%05i_nhitsvschannel_roc_simulation_281",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -401,7 +401,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_nbytes_6",Figure);
+    p.fName          = Form("figure_%05i_nbytes_281",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -459,7 +459,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_timedistr_roc_simulation_ch0",Figure);
+    p.fName          = Form("figure_%05i_timedistr_roc_simulation_ch0_281",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -517,7 +517,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_nhits_8",Figure);
+    p.fName          = Form("figure_%05i_nhits_281",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want
@@ -575,7 +575,7 @@ else if (Figure == 9) {
     p.fLabelYMin     = 0.87;
     p.fLegendXMin    = 0.15; p.fLegendXMax = 0.30; p.fLegendYMin = 0.6; p.fLegendYMax = 0.75;
     p.fCanvasName    = Form("Figure_%04i",Figure);
-    p.fName          = Form("figure_%05i_nhits_9",Figure);
+    p.fName          = Form("figure_%05i_nhits_105038",Figure);
 
     plot_hist_1d(&p,1,Format);
     // add whatever else you want

@@ -1,6 +1,6 @@
 \section{Overflow mode: RUN281}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Time distribution}
+\subsection{Time distribution}\label{over}
 The analysis started examining the data time distribution of each channel.
 After a preliminary observation of the distributions, we saw different patterns for channels in the first FPGA and in the second FPGA,
 as illustrated in Fig. \ref{fig:1}: the initial though  was the occurrence of a cessation in data acquisition for specific channels at a certain time.
@@ -77,11 +77,12 @@ Lastly, the concluding cluster of channels is comprised of those collecting 3 hi
 
 
 \subsection{Number of hits}
+In conclusion, as in Fig. \ref{fig:3}, a key characteristic of the overflow mode becomes evident: the number of hits is concentrated at the maximum value of 255. Consequently, this results in all events possessing the same dimension.
 \begin{figure}[!h]
 \centering
 \includegraphics[width =0.8\textwidth]{figures/pdf/figure_00008_nhits_281}
 \caption{Number of hits distribution.}
-\label{fig:2}
+\label{fig:3}
 \end{figure}
 
 

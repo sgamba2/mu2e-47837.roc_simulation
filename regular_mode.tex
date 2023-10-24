@@ -1,10 +1,47 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{buffer not full}
-\subsection{Time distribution}
-\subsection{nh vs ch}
-\subsection{nhits}
 
-\section{rate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regular mode: RUN105038}
+\subsection{Time distribution}
+Similar to the approach outlined in Section \ref{over}, we commenced our analysis by investigating the temporal distribution of data for channels associated with the first and second FPGAs. Given that we are not operating in an overflow mode, our observations reveal a uniform temporal distribution for both cases.
+\begin{figure}[H]
+  \hspace{-0.5in}
+  \begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] at (0,0.) {
+      % \node[shift={(0 cm,0.cm)},inner sep=0,rotate={90}] at (0,0) {}
+      % \makebox[\textwidth][c] {
+      \includegraphics[width=0.5\textwidth]{figures/pdf/figure_00012_timedistr_roc_simulation_ch2_105038}
+      % }
+    };
+    \node[anchor=south west,inner sep=0] at (10,0.) {
+      % \node[shift={(0 cm,0.cm)},inner sep=0,rotate={90}] at (0,0) {}
+      % \makebox[\textwidth][c] {
+      \includegraphics[width=0.5\textwidth]{figures/pdf/figure_00001_timedistr_roc_simulation_10538}
+      % }
+    };
+  \end{tikzpicture}
+  \caption{
+    \label{fig:4}
+    right: First FPGA's channel time distribution, left: Second FPGA's channel time distribution.
+  }
+\end{figure}
+\subsection{Occupancy: Number of hits versus channel}
+We conducted an analysis by reproducing the plot that shows the number of hits in relation to the channel number. The occupancy is a uniform distribution, primarily attributable to the fact that we are operating in a non-overflow mode.
+\begin{figure}[!h]
+\centering
+\includegraphics[width =0.8\textwidth]{figures/pdf/figure_00002_nhitsvschannel_roc_simulation_2}
+\caption{Occupancy: number of hits versus channel. The ordering of channels adheres to the sequence prescribed by the Monte Carlo simulation.}
+\label{fig:5}
+\end{figure}
+We can see a perfect adherence between data and simulation.
+\subsection{Number of hits}
+As conclusion we can see in Fig. \ref{fig:6}, the main aspect of non-overflow mode: the number of hits are not anymore peaked in 255 and so this reflects in the fact that the number of bytes are not always the same.
+\begin{figure}[!h]
+\centering
+\includegraphics[width =0.8\textwidth]{figures/pdf/figure_00009_nhits_105038}
+\caption{Number of hits distribution.}
+\label{fig:6}
+\end{figure}
+
 
 
 

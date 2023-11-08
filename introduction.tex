@@ -21,16 +21,21 @@ In this note, we present initial results of the tracker DAQ commissioning.
     can vary from one event to another.
   \end{itemize}
 
+\begin{figure}[!h]
+\centering
+\includegraphics[width =0.8\textwidth]{figures/pdf/}
+\caption{Graphic illustration of events.}
+\label{fig:3}
+\end{figure}
 \section{Monte Carlo simulation}\label{MonteCarlo}
 
 To ensure a comprehensive understanding of our system, we initiated a Monte Carlo Simulation of our Data Acquisition (DAQ) system. 
 We simulated performances of the readout logic that is purely digital, relying on different assumptions.
-Given that the maximum allowable number of hits per event is 255, the simulation protocol adheres to the following sequential steps:
+Given that the maximum allowable number of hits per event is 255, the simulation follows these steps:
 \begin{itemize}
-  \item Within a time interval ranging from 0 $\mu$s to the reciprocal of the generator frequency, we generated the first event ($t_0$) by following a uniform distribution;
-    \item After verified that hits from the same channel, are separated by an interval equivalent to the reciprocal of the generator frequency, we proceeded to 
-      generate the second event ($t_1$) by summing this specific time increment to $t_0$;
-      \item Subsequently, we verified whether the second pulse remained within the predefined event window. If it did, we included this hit in the ongoing event under construction;
+  \item Within a time interval ranging from 0 $\mu$s to the reciprocal of the generator frequency, we generated the first event by following a uniform distribution;
+    \item After verified that hits from the same channel, are separated by an interval equivalent to the reciprocal of the generator frequency, we proceeded to generate the second event by summing this specific time increment to the time of the first event;
+      \item We verified whether the second pulse remained within the predefined event window. If it did, we included this hit in the ongoing event under construction;
       \item The process of event creation continued until the count of hits reached the maximum threshold of 255, at which point the event construction was terminated.
 \end{itemize}
 Furthermore, the simulation accounts for the channel to channel and FPGA to FPGA delays. 

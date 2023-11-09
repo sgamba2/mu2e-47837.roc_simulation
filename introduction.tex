@@ -20,11 +20,14 @@ In this note, we present initial results of the tracker DAQ commissioning.
     In this case the ROC hit buffer doesn't get filled up and the total number of hits
     can vary from one event to another.
   \end{itemize}
+Pulses are created between zero and the HB and they are separated by the inverse of the generator frequency.
+The event window position is uncorrelated with the generator and because of this either four or three pulses can fit in the event window.
+There are channel to channel or FPGA to FPGA offsets.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width =0.8\textwidth]{figures/pdf/}
-\caption{Graphic illustration of events.}
+\includegraphics[width =0.8\textwidth]{figures/pdf/eventwindow}
+\caption{Graphic illustration of pulses in an event window.}
 \label{fig:3}
 \end{figure}
 \section{Monte Carlo simulation}\label{MonteCarlo}
@@ -33,7 +36,7 @@ To ensure a comprehensive understanding of our system, we initiated a Monte Carl
 We simulated performances of the readout logic that is purely digital, relying on different assumptions.
 Given that the maximum allowable number of hits per event is 255, the simulation follows these steps:
 \begin{itemize}
-  \item Within a time interval ranging from 0 $\mu$s to the reciprocal of the generator frequency, we generated the first event by following a uniform distribution;
+  \item Within a time interval ranging from zero to the HB, we generated the first event by following a uniform distribution;
     \item After verified that hits from the same channel, are separated by an interval equivalent to the reciprocal of the generator frequency, we proceeded to generate the second event by summing this specific time increment to the time of the first event;
       \item We verified whether the second pulse remained within the predefined event window. If it did, we included this hit in the ongoing event under construction;
       \item The process of event creation continued until the count of hits reached the maximum threshold of 255, at which point the event construction was terminated.

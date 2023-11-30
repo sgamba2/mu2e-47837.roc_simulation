@@ -49,7 +49,7 @@ Given that the maximum allowable number of hits per event is 255, the simulation
   \item The first pulse is generated randomly from 0 to $T_{gen}$, by following a uniform distribution;
     \item The previous pulses are generated subtracting from the first one a step of $T_{gen}$, until the absolute time of the pulse is greater than $T_{EW}$;
 \item Pulses are generated in each channel following the readout sequence;
-  \item The process of pulses creation continued until the count of hits reached the maximum threshold of 255. 
+  \item We considered only the events with number of hits less or equal to 255. 
 \end{itemize}
 
 Furthermore, the simulation takes into accounts the FPGAs offsets and the individual channel to channel offsets. 

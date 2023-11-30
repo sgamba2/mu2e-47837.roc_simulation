@@ -66,7 +66,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/nh_vs_adc_1");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -83,7 +83,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
      p.hd[0].fMarkerStyle   = 20;
      p.hd[0].fMarkerSize    = 0.3;
 
-     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105038.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TFile* f2 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105038.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
      TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nh_vs_adc");
 
     p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
@@ -125,7 +125,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/ch_00/ch_00_time0");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -163,7 +163,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fXMax          = 30.;
     p.fYMin          = 1.e2;
     p.fYMax          = 2.e4;
-    p.fXAxisTitle    = "Time [ns]";
+    p.fXAxisTitle    = "Time [#mus]";
     p.fYAxisTitle    = "counts";
     p.fYTitFormat    = "";
     p.fLabel         = "Time distribution: data and MC for channel 0 - 1st FPGA";
@@ -183,7 +183,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/ch_02/ch_02_time0");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -221,7 +221,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fXMax          = 30.;
     p.fYMin          = 1.e2;
     p.fYMax          = 2.e4;
-    p.fXAxisTitle    = "Time [ns]";
+    p.fXAxisTitle    = "Time [#mus]";
     p.fYAxisTitle    = "counts";
     p.fYTitFormat    = "";
     p.fLabel         = "Time distribution: data and MC for channel 2 - 2nd FPGA";
@@ -241,7 +241,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/ch_02/ch_02_time0");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -279,7 +279,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fXMax          = 70.;
     p.fYMin          = 1.e2;
     p.fYMax          = 2.e4;
-    p.fXAxisTitle    = "Time [ns]";
+    p.fXAxisTitle    = "Time [#mus]";
     p.fYAxisTitle    = "counts";
     p.fYTitFormat    = "";
     p.fLabel         = "Time distribution: data and MC for channel 2 - 2nd FPGA";
@@ -299,7 +299,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/nh_vs_adc_1");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -316,7 +316,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
      p.hd[0].fMarkerStyle   = 20;
      p.hd[0].fMarkerSize    = 0.3;
 
-     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.000281.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TFile* f2 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.000281.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
      TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nh_vs_adc");
 
     p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
@@ -357,7 +357,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/nbtot");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -413,7 +413,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/ch_00/ch_00_time0");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -451,7 +451,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     p.fXMax          = 70.;
     p.fYMin          = 1.e2;
     p.fYMax          = 2.e4;
-    p.fXAxisTitle    = "Time [ns]";
+    p.fXAxisTitle    = "Time [#mus]";
     p.fYAxisTitle    = "counts";
     p.fYTitFormat    = "";
     p.fLabel         = "Time distribution: data and MC for channel 0 - 1st FPGA";
@@ -471,7 +471,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.000281.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/nhits");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -488,7 +488,7 @@ void plot(int Figure, int Print = 1, const char* Format = "pdf") {
      p.hd[0].fMarkerStyle   = 20;
      p.hd[0].fMarkerSize    = 0.3;
 
-     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.000281.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TFile* f2 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.000281.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
      TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nrh_tot");
 
     p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");
@@ -529,7 +529,7 @@ else if (Figure == 9) {
     // const char* dsid   = "su2020.bmum0s16b0";
     // const char* dsid2  = "su2020.bmum0s26b0";
     
-    TFile* f1 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
+    TFile* f1 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105038.hist");
     TH1F* h1 = (TH1F *)f1->Get("TrkFragmentAna/trk/frag_0/nhits");
 
     p.hd[0]                = hist_data_t(h1,"job1","gamba_roc_data");
@@ -546,7 +546,7 @@ else if (Figure == 9) {
      p.hd[0].fMarkerStyle   = 20;
      p.hd[0].fMarkerSize    = 0.3;
 
-     TFile* f2 = TFile::Open("/srv/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105038.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
+     TFile* f2 = TFile::Open("/exp/mu2e/data/projects/tracker/vst/hist/rocsim/rocsim.105038.hist");//"/srv/mu2e/data/projects/tracker/vst/hist/trkvst.annex.trk_fragment_ana.105023.hist"
      TH1F* h2 = (TH1F *)f2->Get("rocsim/Hist/nrh_tot");
 
     p.hd[1]                = hist_data_t(h2,"job2","gamba_roc_simulation");

@@ -2,8 +2,10 @@
 \section{Overflow mode: RUN281}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Time distribution and Occupancy}\label{over}
-The first distribution to look at is the time distribution and it is shown in Fig.\ref{fig:1}.
-The left one is uniform and it comes from channel 0 of the first FPGA, however the right one, that represents the time distribution of channel 2 of the second FPGA, looks non trivial.
+The first distributions to looked at are the time distribution of hits in a specific channel and the occupancy distribution (total number of hits in function of the channel number).
+The timing distribution of hits are shown in Fig.\ref{fig:1}.
+These pictures show the timing distribution of hits in channel 0 of the first FPGA and in channel 2 of the second FPGA.
+The left one is uniform, however the right one looks non trivial.
 
 \begin{figure}[H]
   \hspace{-0.5in}
@@ -23,55 +25,27 @@ The left one is uniform and it comes from channel 0 of the first FPGA, however t
   \end{tikzpicture}
   \caption{
     \label{fig:1}
-    right: First FPGA's channel time distribution, left: Second FPGA's channel time distribution.
+    right: channel 0 (first FPGA) time distribution of hits, left: channel 2 (second FPGA) time distribution of hits.
   }
 \end{figure}
-
-The initial though  was the occurrence of an interruption in data acquisition for specific channels at a certain time. To understand the differences between the two distibutions we plot the occupancy, total number of hits versus channel number, in Fig.\ref{fig:2}. This revealed a non uniform distribution. We compared with the Monte Carlo occupancy. Channels are ordered as the filling of channels occurred.
+These distributions are easier to understand by looking at the occupancy plot in Fig.\ref{fig:2}. Channel ordering in this plot corresponds to the readout order.
+This revealed a non uniform distribution. We compared with the Monte Carlo occupancy.
 \begin{figure}[!h]
 \centering
 \includegraphics[width =0.8\textwidth]{figures/pdf/figure_00004_nhitsvschannel_roc_simulation_281}
 \caption{Occupancy: number of hits versus channel. The ordering of channels adheres to the sequence prescribed by the Monte Carlo simulation.}
 \label{fig:2}
 \end{figure}
-Actually, in the first plots that were made, channels were arranged in an ascending order, spanning from channel 0 to channel 95.
-As second step, the occupancy distribution was plotted with an alternative channel order, as we would expect the filling to occur.
-Our expectation was to observe a declining trend in the number of hits per channel, primarily due to the progressive filling of the buffer. 
-However, contrary to our initial hypothesis, we encountered a distinctive pattern in which the number of hits exhibited a decrease until reaching zero hits at a specific channel, followed by a subsequent increase beyond the 72nd channel, which corresponds to channel 95.
-It was deduced that the initial given channel ordering was incorrect. 
-The first and the second lanes of the second FPGA were inverted and also some channels of the second FPGA.
-Consequently, we have identified a revised channel sequence, as it is shown in Fig.\ref{fig:2}, verified also by the Monte Carlo simulation, which is as follows:
-\begin{center}
-\begin{tabular}{cc}
-\textbf{FIST FPGA}: & \\
-&91,85,79,73,67,61,55,49,\\
-\textit{lane 1}: &43,37,31,25,19,13,7,1,\\
-&90,84,78,72,66,60,54,48,\\
-& \\
-&42,36,30,24,18,12,6,0,\\
-\textit{lane 2}: &93,87,81,75,69,63,57,51,\\
-&45,39,33,27,21,15,9,3,\\
-\textbf{SECOND FPGA}:&\\
-&\\
-&38,44,5,11,17,23,29,35,\\
-\textit{lane 1}:&41,92,2,8,14,20,26,32,\\
-&86,80,74,68,62,56,50,47,\\
- & \\
-&95,89,83,22,16,28,34,40,\\
-\textit{lane 2}:&46,53,59,65,71,77,10,4,\\
-&94,88,82,76,70,64,58,52\\
-\end{tabular}
-\end{center}   
-We can see a perfect adherence between data and simulation. We can interpret the occupancy plot, in Fig.\ref{fig:2}, as it follows: the initial group of channels in the histogram corresponds to the ones in which 4 hits (associated with the first FPGA) and 3 hits (associated with the second FPGA) are stored. 
-Subsequently, a contrasting group of channels where the pattern reverses can be observed, 3 hits from the first FPGA followed by 4 hits from the second FPGA.
-We can observe a little jump in the middle and it is due to channel to channel time differences.
-Time differences between channels are three order of magnitude less than the FPGA ones, so these little jumps are very few, in our case only one appears.
-Lastly, the concluding cluster of channels is comprised of those collecting 3 hits from the first FPGA and 3 hits from the second FPGA.
-Coming back to Fig.\ref{fig:1}, some channels are always read and some others no, due to the fact that the ROC hit buffer gets filled up and only the first 255 hits are read out. This results in uniform time distribution for the first channels readout and in a non unform time distribution for the last readout channels, depending on $T_{gen}$ and $T_{EW}$. 
+As we can see in the number of hits histogram ???, there could be 3 or 4 hits. 
+The first 68 channels are the ones with 4 hits in the first FPGA and three in the second FPGA. The second plateau extending from 68 to 75 are the channels with 3 hits in the first FPGA and 4 hits in the second one. There is a big step at the end of this plateau, because if we count the number of hits in the first FPGA we get 144, so in the second FPGA we have 111 hits in total. 111 is not divisible by 4, so the first 27 channels in the second FPGA will have 4 hits and the last one will have 3 hits only. Last plateau consists of 3 hits from the first FPGA and 3 hits from the second FPGA.
+Coming back to Fig.\ref{fig:1}, some channels are always readout and some others no, as we explained in the introduction the ROC hit buffer gets filled up and only the first 255 hits are read out. This results in uniform time distribution for the first channels readout and in a non unform time distribution for the last readout channels, depending on $T_{gen}$ and $T_{EW}$. The deeps in channel 2 are defined by the differences between the two pulsers. 
+
+
+
 
 
 \subsection{Number of hits}
-In conclusion, as in Fig. \ref{fig:3}, a key characteristic of the overflow mode becomes evident: the number of hits is concentrated at the maximum value of 255 hits. Consequently, this results in all events possessing the same dimension.
+ Fig. \ref{fig:3} shows that we are reading out 255 hits as expected.
 \begin{figure}[!h]
 \centering
 \includegraphics[width =0.8\textwidth]{figures/pdf/figure_00008_nhits_281}

@@ -114,6 +114,7 @@ void plot_hist_1D(hist_data_t* Hist1,  hist_data_t*  Hist2, int Print = 1) {
   if (Hist1->fMarkerSize  >=0) hpx1->SetMarkerSize (Hist1->fMarkerSize );
 
   if (Hist1->fXMin < Hist1->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
+ if (Hist1->fYMin < Hist1->fYMax) hpx1->GetYaxis()->SetRangeUser(Hist1->fYMin,Hist1->fYMax);
   if (Hist1->fXAxisTitle != ""   ) hpx1->GetXaxis()->SetTitle(Hist1->fXAxisTitle.Data());
   if (Hist1->fAxisFontSize >= 0. ) {
     hpx1->GetXaxis()->SetTitleSize(Hist1->fAxisFontSize);
@@ -122,7 +123,7 @@ void plot_hist_1D(hist_data_t* Hist1,  hist_data_t*  Hist2, int Print = 1) {
     hpx1->GetYaxis()->SetLabelSize(Hist1->fAxisFontSize);
   }
 
-  if (Hist1->fYMin < Hist1->fYMax) hpx1->GetYaxis()->SetRangeUser(Hist1->fYMin,Hist1->fYMax);
+  //if (Hist1->fYMin < Hist1->fYMax) hpx1->GetYaxis()->SetRangeUser(Hist1->fYMin,Hist1->fYMax);
   if (Hist1->fYAxisTitle != ""   ) hpx1->GetYaxis()->SetTitle(Hist1->fYAxisTitle.Data());
   if (Hist1->fStats == 0) hpx1->SetStats(0);
 
@@ -314,6 +315,7 @@ int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 1) {
   if (Hist1->fMarkerSize  >=0) hpx1->SetMarkerSize (Hist1->fMarkerSize );
 
   if (Hist1->fXMin < Hist1->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
+ if (Hist1->fYMin < Hist1->fYMax) hpx1->GetYaxis()->SetRangeUser(Hist1->fYMin,Hist1->fYMax);
   if (Hist1->fXAxisTitle != ""   ) hpx1->GetXaxis()->SetTitle(Hist1->fXAxisTitle.Data());
   if (Hist1->fAxisFontSize >= 0. ) {
     hpx1->GetXaxis()->SetTitleSize(Hist1->fAxisFontSize);
@@ -322,7 +324,7 @@ int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 1) {
     hpx1->GetYaxis()->SetLabelSize(Hist1->fAxisFontSize);
   }
 
-  if (Hist1->fYMin < Hist1->fYMax) hpx1->GetYaxis()->SetRangeUser(Hist1->fYMin,Hist1->fYMax);
+  // if (Hist1->fYMin < Hist1->fYMax) hpx1->GetYaxis()->SetRangeUser(Hist1->fYMin,Hist1->fYMax);
 
 //-----------------------------------------------------------------------------
 // Y axis title:  by default, assume constant bin size. Sometimes want to disable
@@ -435,10 +437,13 @@ int plot_hist_1d(hist_data_t* Hist, int NHist, int Print = 1) {
     if (Hist2->fMarkerStyle >=0) hpx2->SetMarkerStyle(Hist2->fMarkerStyle);
     if (Hist2->fMarkerColor >=0) hpx2->SetMarkerColor(Hist2->fMarkerColor);
     if (Hist2->fMarkerSize  >=0) hpx2->SetMarkerSize (Hist2->fMarkerSize );
-
-    // set the same limits as Hist1
+    if (Hist1->fXMin < Hist1->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
     if (Hist1->fXMin < Hist1->fXMax) hpx2->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
-
+ if (Hist1->fYMin < Hist1->fYMax) hpx1->GetYaxis()->SetRangeUser(Hist1->fYMin,Hist1->fYMax);
+ if (Hist2->fYMin < Hist2->fYMax) hpx2->GetYaxis()->SetRangeUser(Hist2->fYMin,Hist2->fYMax);
+    // if (Plot->fXMin < Plot->fXMax) hpx2->GetXaxis()->SetRangeUser(Plot->fXMin,Plot->fXMax);
+    // set the same limits as Hist1
+    
     if (Hist2->fStats == 0) hpx2->SetStats(0);
 
     if (Hist2->fDrawOpt == "") hpx2->Draw("ep,sames");
@@ -576,7 +581,9 @@ void fit_gaus_hist_1D(hist_data_t* Hist, const char* FOpt, const char* GOpt, dou
   if (Hist->fLineColor > 0) hpx1->SetLineColor(Hist->fLineColor);
   hpx1->SetLineWidth(1);
   hpx1->SetTitle("");
-  if (Hist->fXMin < Hist->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist->fXMin,Hist->fXMax);
+  if (Hist->fXMin < Hist->fXMax){
+    hpx1->GetXaxis()->SetRangeUser(Hist->fXMin,Hist->fXMax);
+  }
   if (Hist->fXAxisTitle != ""  ) hpx1->GetXaxis()->SetTitle(Hist->fXAxisTitle.Data());
   hpx1->Fit("gaus",FOpt,GOpt,XMin,XMax);
 //-----------------------------------------------------------------------------
@@ -718,7 +725,7 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "pdf") {
   if (Hist1->fMarkerSize  >=0) hpx1->SetMarkerSize (Hist1->fMarkerSize );
 
   if (Plot->fXMin < Plot->fXMax) hpx1->GetXaxis()->SetRangeUser(Plot->fXMin,Plot->fXMax);
-  if (Hist1->fXMin < Hist1->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
+  //if (Hist1->fXMin < Hist1->fXMax) hpx1->GetXaxis()->SetRangeUser(Hist1->fXMin,Hist1->fXMax);
  
   if (Plot->fXAxisTitle != ""  ) hpx1->GetXaxis()->SetTitle(Plot->fXAxisTitle.Data());
 
@@ -806,24 +813,7 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "pdf") {
     stn_dataset_t* ds2(nullptr);
     if (hf2) ds2     = hf2->fDataset;
 
-    if (Hist2->fScale == 1) {
-//-----------------------------------------------------------------------------
-// normalize to the first histogram by dataset
-//-----------------------------------------------------------------------------
-      if (ds1 && ds2) {
-	double scale = (ds1->fNGenEvents+0.)/(ds2->fNGenEvents+0.);
-	printf("ds1->fNGenEvents, ds2->fNGenEvents, scale: %li %li %f\n",ds1->fNGenEvents, ds2->fNGenEvents, scale);
-	hpx2->Scale(scale);
-      }
-    }
-    else if (Hist2->fScale == 2) {
-//-----------------------------------------------------------------------------
-// normalize to the integral of the first histogram
-//-----------------------------------------------------------------------------
-      double scale = hpx1->Integral()/hpx2->Integral();
-      hpx2->Scale(scale);
-    }
-
+   
     if (Hist2->fLumiSF > 0) hpx2->Scale(Hist2->fLumiSF);
   
     hpx2->SetLineWidth(1);
@@ -840,10 +830,14 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "pdf") {
 
     // set the same limits as Hist1
     if (Plot->fXMin < Plot->fXMax) hpx2->GetXaxis()->SetRangeUser(Plot->fXMin,Plot->fXMax);
-    if (Hist2->fXMin < Hist2->fXMax) hpx2->GetXaxis()->SetRangeUser(Hist2->fXMin,Hist2->fXMax);
-   
-    // hpx1->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
-    // hpx2->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
+    if (Plot->fYMin < Plot->fYMax) hpx2->GetYaxis()->SetRangeUser(Plot->fYMin,Plot->fYMax);
+    //if (Hist2->fXMin < Hist2->fXMax) hpx2->GetXaxis()->SetRangeUser(Hist2->fXMin,Hist2->fXMax);
+    //hpx1->GetYaxis()->SetLimits(Plot->fYMin,Plot->fYMax);
+    //hpx2->GetYaxis()->SetLimits(Plot->fYMin,Plot->fYMax);
+    //hpx1->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
+    printf("ciao\n");
+    //hpx2->GetXaxis()->SetLimits(Plot->fXMin,Plot->fXMax);
+   printf("ciao\n");
     if (Hist2->fStats == 0) hpx2->SetStats(0);
 
     if (Hist2->fDrawOpt == "") hpx2->Draw("ep,sames");
@@ -873,6 +867,24 @@ int plot_hist_1d(plot_data_t* Plot, int Print = 1, const char* Format = "pdf") {
       if (Hist2->fFillStyle > 0) lopt = "f";
       leg->AddEntry(hpx2,Hist2->fLabel.Data(),lopt.Data());
     }
+     if (Hist2->fScale == 1) {
+//-----------------------------------------------------------------------------
+// normalize to the first histogram by dataset
+//-----------------------------------------------------------------------------
+      if (ds1 && ds2) {
+	double scale = (ds1->fNGenEvents+0.)/(ds2->fNGenEvents+0.);
+	printf("ds1->fNGenEvents, ds2->fNGenEvents, scale: %li %li %f\n",ds1->fNGenEvents, ds2->fNGenEvents, scale);
+	hpx2->Scale(scale);
+      }
+    }
+    else if (Hist2->fScale == 2) {
+//-----------------------------------------------------------------------------
+// normalize to the integral of the first histogram
+//-----------------------------------------------------------------------------
+      double scale = hpx1->Integral()/hpx2->Integral();
+      hpx2->Scale(scale);
+    }
+
   }
 //-----------------------------------------------------------------------------
 // position statboxes - need to update the canvas first

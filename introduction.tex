@@ -2,33 +2,49 @@
 
 In this note, we present initial results of the tracker DAQ commissioning.
 \section{Description of teststand setup}
-  The tracker teststand, called TS1, includes one DRAC card and one DTC connected to the DAQ computer, 96 channels in total.
-The ROC can be operated in two different data readout modes. In the first one the ROC emulates data itself without reading FPGAs. In the second mode the ROC reads digi FPGA.
- Most of the data were taken operating in the mode two with digi FPGAs, pulsed by their internal pulser.
-  The pulser has two different frequencies,  31.29 MHz/(2$^7$+1), or approximately 250 kHz, 
+The tracker test stand, \del{called} TS1, included one DRAC card \add{connected via an optical fiber}
+to the DTC \add{installed in} \del{connected to} the DAQ computer mu2edaq09, 96 channels in total.
+The ROC was operated in two different data readout modes:
+\begin{itemize}
+\item 
+  mode 1: the ROC was emulating the data itself without reading FPGAs (a pattern readout mode).
+\item 
+  mode 2: the ROC was reading digi FPGAs.
+\end{itemize}
+
+Most of the data were taken operating in the mode 2, with digi FPGAs, pulsed by their internal pulsers.
+A pulser has two different frequencies,  31.29 MHz/(2$^7$+1), or approximately 250 kHz, 
 and 31.29 MHz/(2$^9$+1), or approximately 60 kHz.
 Event window is the time interval between two heartbeats (HB's). 
-The logic of data taking is shown in Fig. \ref{fig:3}.
-Pulses are represented with gray triangles and 
-they are separated by the inverse of the generator frequency. We call $T_{gen}=1/f_{gen}$.
+\add{A timing diagram of a single channel readout}\del{The logic of data-taking} is shown in Fig. \ref{fig:3}.
+Pulses, separated by $T_{gen}=1/f_{gen}$, where $f_{gen}$ is \del{the inverse of} the generator frequency
+are represented \add{by}\del{with} gray triangles.\del{, they are . We call .}
 The event window, with the width of $T_{EW}$, that represents the distance between the proton pulses, 
 was varied from 700 ns to 50 $\mu$s. 
 The ROC firmware has an internal hit buffer which stores up to 255 hits.
-That should be sufficient for the data taking.
-Depending on $T_{gen}$ and $T_{EW}$, the data taking can proceed in two different modes:
-  \begin{itemize}
-  \item
-    The event window is large enough , so the total number of generated hits is greater than 255. In this case
-    the ROC hit buffer always gets filled up, and only the first 255 hits are read out;
-  \item
-    The total number of hits within the event window is less than 255.
-    In this case the ROC hit buffer doesn't get filled up and the total number of hits can vary from one event to another.
-  \end{itemize}
-Each FPGA has its own pulse generator and pulse sequences from different generators are offset with respect to each other by a fixed $\Delta t$, fixed for the specific FPGA.
-This offset can be a random number between 0 and $T_{gen}$.
-Timing of generator pulses are uncorrelated with the beginning of the time window. Different number of hits can fit in the event window, as we can see in Fig.\ref{fig:3}.
-Within one FPGA, pulses digitize in different channels and they have different timing, so they are offset of the order of nanoseconds.
-Readout sequence is defined. All channels are readout in a specific sequence that doesn't change in different events. The sequence is shown in App.\ref{order}.
+\del{That should be sufficient for the data taking.}
+Depending on $T_{gen}$ and $T_{EW}$, the data taking can proceed in two different
+\del{modes}\add{scenarios}:
+\begin{itemize}
+\item
+  The event window is large enough , so the total number of generated hits is greater than 255. In this case
+  the ROC hit buffer always gets filled up, and only the first 255 hits are read out;
+\item
+  The total number of hits within the event window is less than 255.
+  In this case the ROC hit buffer doesn't get filled up and the total number of hits may vary from one event to another.
+\end{itemize}
+
+Each digi FPGA has its own pulse generator and \add{the} pulse sequences from \add{the two}\del{different}
+generators are offset with respect to each other by a \del{fixed} \add{time interval} $\Delta t$.
+\del{fixed for the specific FPGA}. The offset is constant for as long as the DRAC board is powered up and varies randomly between 0 and $T_{gen}$ when DRAC is powercycled.
+\add{The timing of the readout is uncorrelated with the generator timing sequences,
+  so the number of pulses within the readout window can vary from  from one event to another, as shown
+  in Figure \ref{fig:3}.}
+\del{Timing of generator pulses are uncorrelated with the beginning of the time window. Different number of hits can fit in the event window, as we can see in Fig.\ref{fig:3}.}
+\add{Relative timing offsets of the channels within the same FPGA are of the order of a few nanoseconds.}
+\del{Within one FPGA,  pulses digitized in different channels and they have different timing, so they are offset of the order of nanoseconds.}
+\del{Readout sequence is defined. All channels are readout in a specific sequence that doesn't change in different events. The sequence is shown in App.\ref{order}.}
+\add{The channel readout sequence is fixed and is presented in Appendix \ref{order}.}
 
 \begin{figure}[!h]
 \centering
@@ -36,25 +52,47 @@ Readout sequence is defined. All channels are readout in a specific sequence tha
 \caption{Graphic illustration of pulses in an event window.}
 \label{fig:3}
 \end{figure}
+
+The data taking has been performed using OTSDAQ+ARTDAQ software, and for each run the output data
+have been stored in an art file moved to {\bf /exp/mu2e/data/projects/tracker/vst} area mounted
+on Mu2e central platforms.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Monte Carlo simulation}\label{MonteCarlo}
  
 The ROC readout logic is purely digital, so the readout process can be simulated. 
 The logic of the simulation is as follows.
-The simulated parameters for each event are the number of hits in each channel and the total number of readout hits.
-In the following sections, we call $occupancy$ the total number of hits versus channel number.
+The simulated parameters for each event are the number of hits in each channel
+and the total number of readout hits.
 
-Given that the maximum allowable number of hits per event is 255, the simulation follows these steps:
+In the following sections, we call $occupancy$ the total number of hits
+\del{versus channel number}\add{recorded in a given channel during the test run.}
+
+Given that the \del{maximum allowable number of hits per event is}
+\add{total number of hits per event doesn't exceed} 255, the simulation follows these steps:
 \begin{itemize}
-\item The event window starts at $t=0$s;
-  \item The timing of the first pulse is generated randomly from 0 to $T_{gen}$, by sampling a uniform distribution;
-    \item The previous pulses are generated subtracting from the first one a step of $T_{gen}$, until the absolute time of the pulse is greater than $T_{EW}$;
-\item In each channel, pulses are generated in each channel following the readout sequence;
-  \item After pulse generation, the readout continues until the count of hits reaches the maximum threshold of 255. 
+\item
+  The event window starts at $t=0$s;
+\item
+  In a given FPGA, the timing of the first pulse is generated randomly from 0 to $T_{gen}$
+  by sampling a uniform distribution;
+\item
+  The \del{previous}\add{subsequent} pulses \del{are added, separated from each other by $T_{gen}$,}
+  \del{generated subtracting from the first one a step of $T_{gen}$,} until the absolute time
+  of the \add{next} pulse is greater than $T_{EW}$;
+\item
+  \del{In each channel, pulses are generated in each channel}
+  \add{In the readout simulation, the pulses are read out} following the readout sequence;
+\item
+  \del{After pulse generation,} the readout ``continues'' until \add{all simulated hits are included or}
+  the \del{count}\add{total number} of read out hits reaches the maximum threshold of 255. 
 \end{itemize}
 
-The simulation takes into accounts the FPGAs offsets and the individual channel to channel offsets. 
-We compared the simulated parameters with the measured ones. 
-
+The simulation \add{also} takes into account the \add{offset between the two FPGA timing sequences}
+\del{FPGAs offsets} and the individual channel-to-channel \add{timing} offsets. 
+\del{We compared the simulated parameters with the measured ones. }
+\add{In the following sections, results of the data taking are compared with the simulation.}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t

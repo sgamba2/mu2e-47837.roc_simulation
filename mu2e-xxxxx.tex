@@ -114,24 +114,28 @@
   \vspace{1cm}
 
   \begin{center}
-    {\Large \bf Commissioning of the Mu2e Data AcQuisition system and the Vertical Slice Test of the straw tracker
+    {\Large \bf Commissioning of the Mu2e Data Acquisition system for the Vertical Slice Test of the straw tracker
 
       \vspace{0.3in}
 
-      11. Mu2e ROC simulation
+      % 1. Mu2e ROC simulation
     }
 
     \vspace{1cm}
-%     S. Gamba  \footnote{\texttt{Fermilab; e-mail:s.gamba2\@studenti.unipi.it} (University of Pisa)
-%     P. Murat \footnote{\texttt{Fermilab; e-mail: murat\@fnal.gov} (FNAL)
+    R.Bonventre (LBNL),
+    S. Gamba  \footnote{\texttt{Fermilab; e-mail:s.gamba2\@studenti.unipi.it}} (University of Pisa),
+    M.Tecchio (University of Michigan),
+    P. Murat \footnote{\texttt{Fermilab; e-mail: murat\@fnal.gov}},
+    V.Rusu  (FNAL)
 
-   
-    version 1.0
+        version 1.0
     \today
  \end{center}
 
   \begin{abstract}
-    This note presents the initial results of the tracker DAQ commissioning.
+    This note presents the initial results of the tracker DAQ commissioning performed in the fall of 2023.
+    Readout of a single ROC connected to a DTC has been tested in several modes. A toy MC simulation
+    of the ROC readout has been developed. The simulation results show a very good agreement with the data.
     \vspace{0.2in}
   \end{abstract}
 
@@ -163,23 +167,22 @@
 \include{introduction}
 \include{overflow_mode}
 \include{regular_mode}
-\include{rate}
+% \include{rate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Summary}
-\begin{itemize}
-\item Two modes of data taking are now well understood: the overflow one and the regular one;
-\item
-\end{itemize}
+The initial studies of the tracker readout show that the logic of the ROC and digi FPGA
+firmware performs as expected. Tests of the DRAC readout in different modes show very good 
+agreement with the simulation.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \appendix\label{order}
-\section{Channels readout order}
+\section{Channel readout order}
 \begin{center}
 \begin{tabular}{cc}
-\textbf{FIST FPGA}: & \\
+\textbf{First FPGA (CAL)}: & \\
 &91,85,79,73,67,61,55,49,\\
 \textit{lane 1}: &43,37,31,25,19,13,7,1,\\
 &90,84,78,72,66,60,54,48,\\
@@ -187,7 +190,7 @@
 &42,36,30,24,18,12,6,0,\\
 \textit{lane 2}: &93,87,81,75,69,63,57,51,\\
 &45,39,33,27,21,15,9,3,\\
-\textbf{SECOND FPGA}:&\\
+\textbf{Second FPGA (HV)}:&\\
 &\\
 &38,44,5,11,17,23,29,35,\\
 \textit{lane 1}:&41,92,2,8,14,20,26,32,\\
